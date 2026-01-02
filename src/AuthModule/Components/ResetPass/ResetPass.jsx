@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-import React from 'react'
-
-export default function ResetPass() {
-  return (
-    <div>ResetPass</div>
-  )
-}
-=======
 import React from "react";
 import logo from "../../../assets/images/logo2.svg";
 import Button from "react-bootstrap/Button";
