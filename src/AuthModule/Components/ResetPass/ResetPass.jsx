@@ -176,5 +176,3 @@ function Resetpass() {
     </>
   );
 }
-export default Resetpass;
->>>>>>> Stashed changes

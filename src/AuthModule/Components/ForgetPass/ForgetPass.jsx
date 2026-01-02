@@ -106,5 +106,3 @@ function Forgetpass() {
     </>
   );
 }
-export default Forgetpass;
->>>>>>> Stashed changes
