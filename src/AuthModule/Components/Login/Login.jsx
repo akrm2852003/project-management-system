@@ -13,15 +13,15 @@ function Login(){
  
    return(
         <> 
-            <div className="auth-container">
-                <div className="container-fluid w-100 vh-100 ">
-                <div className="images">
+            <div className="auth-container ">
+                <div className="container-fluid">
+                <div className="images" >
                      <div className="bg-login "></div>
                      <div className="log-img"></div>
-                 <div className="content">
-                        <div className="row col-md-7 col-lg-5 col-sm-12">
-                            <div className="col-md-6 col-lg-4 col-sm-12 bg-white ">
-                                <div className="form-container w-50 p-5 ">
+                 <div className="content  ">
+                        <div className="row min-vh-100 justify-content-center align-items-center ">
+                            
+                                <div className="form-container  col-lg-5 col-md-7 col-sm-12">
                                    <div className="logo d-flex justify-content-center align-items-center mb-3">
                                         <img src={logo} className="w-50"  alt="this is logo image" />
                                     </div>
@@ -47,7 +47,7 @@ function Login(){
                                               <Link to='/forgetpass' className="text-white text-decoration-none" >forget password !</Link>
                                            </div>
                                         
-                                         <Button type="submit" className="w-100 border-0 rounded-5 p-2 align-items-center" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>
+                                         <Button type="submit" className="w-100 border-0 rounded-5 p-2 align-items-center " style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>
                                            Log In
                                          </Button>
                                         </Form>
@@ -55,7 +55,7 @@ function Login(){
                                 </div>
                             </div>
                      </div>
-                     </div>
+                     
                 </div>
             </div> 
         </div> 
