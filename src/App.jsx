@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import './App.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authlayout from "./SharedModule/Components/AuthLayout/Authlayout.jsx";
@@ -10,6 +10,7 @@ import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount.j
 import Changepass from "./AuthModule/Components/ChangePass/ChangePass.jsx";
 import Forgetpass from "./AuthModule/Components/Forgetpass/Forgetpass.jsx";
 import Resetpass from "./AuthModule/Components/ResetPass/ResetPass.jsx";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const routes = createBrowserRouter([
@@ -33,6 +34,7 @@ function App() {
   return (
     <>
     <RouterProvider router={routes}></RouterProvider>
+    <ToastContainer/>
     </>
   )
 }
