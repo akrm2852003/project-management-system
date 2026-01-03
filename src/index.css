@@ -1,0 +1,142 @@
+*{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.auth-container{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(14, 56, 47, 1);
+ 
+}
+.images{
+  position: relative;
+   width: 100%;
+  height: 100vh;
+}
+.bg-overlay{
+   position: absolute; 
+   right: 0;
+   top: 0;
+  z-index: 0; 
+}
+ .sec-img{
+  width: 260px;
+  height: 350px;
+   position: absolute; 
+   bottom: 0;
+   z-index: 1;
+   background-image: url(assets/images/home-2.png); 
+   /* background-color: aliceblue; */
+} 
+.form-container{
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  /* background-color: rgba(49, 89, 81, 0.9); */
+
+} 
+.login-form{
+  background-color: rgba(49, 89, 81, 0.9);
+  margin-top: auto;
+
+}
+/* ////login////// */
+
+.bg-login{
+   position: absolute; 
+   right: 0;
+   top: 0;
+   z-index: 0; 
+   width: 440px;
+   height: 100%;
+   background-image: url(assets/images/login-top.png); 
+   background-size: cover;
+
+  
+}
+ .log-img{
+  width: 360px;
+  height: 450px;
+   position: absolute; 
+   bottom: 0;
+   z-index: 1;
+   background-image: url(assets/images/login-down.png); 
+   /* background-color: aliceblue; */
+   background-size: cover;
+}
+.login-line{
+  width: 15px;
+  height: 2px;
+  background-color: rgba(239, 155, 40, 1);
+}
+.form-control{ 
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid white !important;
+  padding-left: 0 !important;
+  /* color: white !important; */
+}
+.custom-input .form-control::placeholder{
+  color: rgba(255, 255, 255 ,0.5) !important;
+  opacity: 1 !important;
+}
+
+/* ///////forget///// */
+.bg-forget{
+   position: absolute; 
+   right: 0;
+   top: 0;
+   z-index: 0; 
+   width: 440px;
+   height: 100%;
+   background-image: url(assets/images/forget-top.png); 
+   background-size: cover;
+
+  
+}
+ .forget-img{
+  width: 360px;
+  height: 450px;
+   position: absolute; 
+   bottom: 0;
+   z-index: 1;
+   background-image: url(assets/images/forget-down.png); 
+   /* background-color: aliceblue; */
+   background-size: cover;
+}
+/* //////////////reset and register////// */
+.bg-reset{
+   position: absolute; 
+   right: 0;
+   top: 0;
+   z-index: 0; 
+   width: 440px;
+   height: 100%;
+   background-image: url(assets/images/reset-top.png); 
+   background-size: cover;
+}
+ .reset-img{
+  width: 360px;
+  height: 450px;
+   position: absolute; 
+   bottom: 0;
+   z-index: 1;
+   background-image: url(assets/images/reset-down.png); 
+   /* background-color: aliceblue; */
+   background-size: cover;
+}
+.circle{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url(assets/images/user.jpg);
+  background-size: cover;
+  margin: auto !important;
+}
+
+

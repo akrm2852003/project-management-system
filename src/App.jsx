@@ -7,9 +7,9 @@ import WelcomePage from './AuthModule/Components/WelcomePage/WelcomePage.jsx'
 import Login from "./AuthModule/Components/Login/Login.jsx";
 import Register from "./AuthModule/Components/Register/Register.jsx";
 import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount.jsx";
-import Changepass from "./AuthModule/Components/Changepass/Changepass.jsx";
+import Changepass from "./AuthModule/Components/ChangePass/ChangePass.jsx";
 import Forgetpass from "./AuthModule/Components/Forgetpass/Forgetpass.jsx";
-import Resetpass from "./AuthModule/Components/Resetpass/Resetpass.jsx";
+import Resetpass from "./AuthModule/Components/ResetPass/ResetPass.jsx";
 
 function App() {
   const routes = createBrowserRouter([
