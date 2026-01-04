@@ -29,13 +29,13 @@ let navigate= useNavigate();
     return(
         <>
         <div className="auth-container">
-                        <div className="images">
+                       <div className="container-fluid">
+                         <div className="images">
                              <div className="bg-forget"></div>
                              <div className="forget-img"></div>
-                         <div className="container-fluid">
-                                <div className="row  justify-content-center align-items-center ">
-                                    <div className="col-md-8 bg-white ">
-                                        <div className="form-container w-50 p-5 ">
+                                <div className="row justify-content-center align-items-center ">
+                                   
+                                        <div className="form-container col-lg-6 col-md-7 col-sm-12  ">
                                             <div className="logo d-flex justify-content-center align-items-center mb-3">
                                                   <img src={logo} className="w-50"  alt="this is logo image" />
                                             </div>
@@ -58,7 +58,7 @@ let navigate= useNavigate();
                                             })}
                                            className="text-white rounded-0 form-control pb-2" type="email" placeholder="Enter email" style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}}/>
                                          </Form.Group>
-                                          {errors.email && <div className="text-danger">{errors.email.message}</div>}
+                                          {errors.email && <div className="text-danger"><p>{errors.email.message}</p></div>}
 
                                           <Form.Group className="custom-input mb-2 " controlId="formBasicOtp">
                                            <Form.Label className="m-0 mt-1 " style={{color:"rgba(239, 155, 40, 1)"}}>OTP Verification</Form.Label>
@@ -70,7 +70,7 @@ let navigate= useNavigate();
                                            className="text-white rounded-0 form-control pb-2" type="text"
                                             placeholder="Enter Verification" style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}}/>
                                          </Form.Group>
-                                          {errors.otp && <div className="text-danger">{errors.otp.message}</div>}
+                                          {errors.otp && <div className="text-danger"><p>{errors.otp.message}</p></div>}
 
 
                                          
@@ -80,11 +80,10 @@ let navigate= useNavigate();
                                          </Button>
                                         </Form>
                                         </div>
-                                    </div>
+                                  
                              </div>
-                             
-                        </div>
                     </div> 
+                       </div>
                 </div> 
         </>
     )

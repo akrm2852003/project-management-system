@@ -10,7 +10,7 @@ function WelcomePage(){
      useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/login");
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [navigate]);
     

@@ -12,8 +12,8 @@ import circleImg from "../../../assets/images/avatar.png";
 
 
 function Register(){
-   let { register, handleSubmit, formState: { errors }, getValues} = useForm({mode:"onChange"});
-
+   let { register, handleSubmit, formState: { errors }, watch} = useForm({mode:"onChange"});
+const password = watch("password");
   let navigate= useNavigate();
   let [showPassword, setShowPassword] = useState(false);
   let [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -40,15 +40,15 @@ function Register(){
     return(
 <>
    <div className="auth-container">
-     <div className="container-fluid w-100 vh-100 ">
+     <div className="container-fluid   ">
         <div className="images">
           <div className="bg-login"></div>
           <div className="log-img"></div>
         </div>
           <div className="content">
-            <div className="row col-md-7 col-lg-5 col-sm-12">
-              <div className="col-md-6 col-lg-4 col-sm-12 bg-white ">
-                <div className="form-container w-50  ">
+            <div className="row justify-content-center align-items-center ">
+              
+                <div className="form-container col-lg-6 col-md-7 col-sm-12  ">
                   <div className="logo d-flex justify-content-center align-items-center mb-3">
                       <img src={logo} className="w-50"  alt="this is logo image" />
                   </div>
@@ -59,7 +59,8 @@ function Register(){
                           <div className="login-line mb-2"></div>
                       </div>
                       <div className="circle mb-1 m-auto ">
-                        <img src={circleImg} className="w-100" alt="user"/></div>
+                        <img src={circleImg} className="w-100" alt="user"/>
+                        </div>
                       <div className=" d-flex">
                         <Form.Group className="custom-input mb-4  w-100 " controlId="formBasicEmail">
                           <Form.Label className="m-0 mt-1" style={{color:"rgba(239, 155, 40, 1)"}}>Name </Form.Label>
@@ -105,7 +106,7 @@ function Register(){
                                 type="tel" className="text-white rounded-0 form-control"
                                 placeholder="enter your phone Number" style={{backgroundColor:"transparent"}}/>
                             
-                            {errors.phone && <div className="alert alert-danger"><p>{errors.phone.message}</p></div>}
+                            {errors.phone && <div className="alert alert-danger">{errors.phone.message}</div>}
                           </Form.Group>
                           </div>
                           <div className=" d-flex ">
@@ -130,16 +131,16 @@ function Register(){
                             >
                               <i className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
                             </span>
-                        {errors.password && <div className="alert alert-danger"><p>{errors.password.message}</p></div>}
+                        {errors.password && <div className="alert alert-danger">{errors.password.message}</div>}
                         </Form.Group>
 
-                        <Form.Group className="custom-input mb-4  w-100  position-relative">
+                        <Form.Group className="custom-input mb-4  w-100  position-relative ms-4">
                           <Form.Label style={{color:"rgba(239, 155, 40, 1)"}}>Confirm Password</Form.Label>
                           <Form.Control
                             {...register("confirmPassword", {
                               required: "Confirm password is required",
                               validate: value =>
-                                value === getValues("password") || "Passwords do not match"
+                                value === password || "Passwords do not match"
 
                             })}
                             type={showConfirmPassword ? "text" : "password"}
@@ -175,8 +176,6 @@ function Register(){
             </div>
           </div>
         </div>
-     </div> 
- 
  </>
     )
 
