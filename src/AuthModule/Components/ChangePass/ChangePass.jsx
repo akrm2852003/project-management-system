@@ -1,6 +1,6 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 import logo from '../../../assets/images/logo2.svg'
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -48,8 +48,7 @@ function Changepass(){
             <div className="forget-img"></div>
             <div className="container-fluid">
               <div className="row  justify-content-center align-items-center ">
-                <div className="col-md-8 bg-white ">
-                  <div className="form-container w-50 p-5 ">
+                  <div className="form-container col-lg-4 col-md-6 col-sm-12">
                     <div className="logo d-flex justify-content-center align-items-center mb-1">
                       <img
                         src={logo}
@@ -153,7 +152,7 @@ function Changepass(){
                       </Button>
                     </Form>
                   </div>
-                </div>
+                
               </div>
             </div>
           </div>

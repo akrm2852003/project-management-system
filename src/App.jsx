@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authlayout from "./SharedModule/Components/AuthLayout/Authlayout.jsx";
@@ -9,13 +9,9 @@ import Register from "./AuthModule/Components/Register/Register.jsx";
 import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount.jsx";
 import Changepass from "./AuthModule/Components/Changepass/Changepass.jsx";
 import Forgetpass from "./AuthModule/Components/Forgetpass/Forgetpass.jsx";
-<<<<<<< Updated upstream
-import Resetpass from "./AuthModule/Components/Resetpass/Resetpass.jsx";
-=======
 import Resetpass from "./AuthModule/Components/ResetPass/ResetPass.jsx";
 import { ToastContainer } from "react-toastify";
 
->>>>>>> Stashed changes
 
 function App() {
   const routes = createBrowserRouter([
