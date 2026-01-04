@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 
 import './App.css'
-=======
-import { useState } from "react";
-import "./App.css";
->>>>>>> d7bfb978999d9ecd08619571427f788e9581985c
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authlayout from "./SharedModule/Components/AuthLayout/Authlayout.jsx";
 import Notfound from "./SharedModule/Components/NotFound/NotFound.jsx";
@@ -13,7 +8,7 @@ import Login from "./AuthModule/Components/Login/Login.jsx";
 import Register from "./AuthModule/Components/Register/Register.jsx";
 import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount.jsx";
 import Changepass from "./AuthModule/Components/ChangePass/ChangePass.jsx";
-import Forgetpass from "./AuthModule/Components/Forgetpass/Forgetpass.jsx";
+import Forgetpass from "./AuthModule/Components/ForgetPass/ForgetPass.jsx"
 import Resetpass from "./AuthModule/Components/ResetPass/ResetPass.jsx";
 import { ToastContainer } from 'react-toastify';
 
@@ -42,7 +37,6 @@ function App() {
     <>
     <RouterProvider router={routes}></RouterProvider>
       <ToastContainer position="top-center" />
-      
     </>
   );
 }

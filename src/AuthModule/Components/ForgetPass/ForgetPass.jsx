@@ -1,4 +1,4 @@
-import React from "react";
+;
 import logo from "../../../assets/images/logo2.svg";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -7,11 +7,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-function Forgetpass() {
-  let {
+export default function ForgetPass() {
+      let {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
   let navigate = useNavigate();
   async function onSubmit(data) {
@@ -29,15 +29,14 @@ function Forgetpass() {
   }
   return (
     <>
-      <div className="auth-container">
-        <div className="container-fluid w-100 vh-100 ">
+     <div className="auth-container">
+        <div className="container-fluid ">
           <div className="images">
             <div className="bg-login"></div>
             <div className="log-img"></div>
             <div className="content">
-              <div className="row col-md-7 col-lg-5 col-sm-12">
-                <div className="col-md-6 col-lg-4 col-sm-12 bg-white ">
-                  <div className="form-container w-50 p-5 ">
+              <div className="row justify-content-center align-items-center ">
+                  <div className="form-container  col-lg-6 col-md-7 col-sm-12  ">
                     <div className="logo d-flex justify-content-center align-items-center mb-3">
                       <img
                         src={logo}
@@ -97,13 +96,15 @@ function Forgetpass() {
                       </Button>
                     </Form>
                   </div>
-                </div>
+              
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
-  );
+      </>
+  )
 }
-export default Forgetpass;
+
+
+

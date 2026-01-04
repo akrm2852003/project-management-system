@@ -1,4 +1,4 @@
-import React from "react";
+
 import logo from '../../../assets/images/logo2.svg'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 
-function Changepass(){
+export default function ChangePass() {
       let {
         register,
         handleSubmit,
@@ -40,16 +40,16 @@ function Changepass(){
     
         }
       }
-    return (
-      <>
+  return (
+    <>
         <div className="auth-container">
           <div className="images">
             <div className="bg-forget"></div>
             <div className="forget-img"></div>
             <div className="container-fluid">
               <div className="row  justify-content-center align-items-center ">
-                <div className="col-md-8 bg-white ">
-                  <div className="form-container w-50 p-5 ">
+               
+                  <div className="form-container col-lg-6 col-md-7 col-sm-12  ">
                     <div className="logo d-flex justify-content-center align-items-center mb-1">
                       <img
                         src={logo}
@@ -125,7 +125,7 @@ function Changepass(){
                           {...register("confirmNewPassword", {
                             required: "confirm New password is required",
                             validate: function (value) {
-                              if (value == newPassword) {
+                              if (value === newPassword) {
                                 return true;
                               } else {
                                 return "New password don't match";
@@ -153,11 +153,15 @@ function Changepass(){
                       </Button>
                     </Form>
                   </div>
-                </div>
+               
               </div>
             </div>
           </div>
         </div>
-      </>
-    );
-  }
+    </>
+  )
+}
+
+
+
+
