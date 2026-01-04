@@ -43,9 +43,9 @@ function Resetpass() {
           <div className="bg-login"></div>
           <div className="log-img"></div>
           <div className="container-fluid">
-            <div className="row ">
-              <div className="col-md-8 bg-white ">
-                <div className="form-container w-50 p-5">
+            <div className="row justify-content-center align-items-center ">
+             
+                <div className="form-container col-lg-4 col-md-6 col-sm-12">
                   <div className="logo d-flex justify-content-center align-items-center mb-2">
                     <img src={logo} className="w-50" alt="this is logo image" />
                   </div>
@@ -168,7 +168,7 @@ function Resetpass() {
                     </Button>
                   </Form>
                 </div>
-              </div>
+              
             </div>
           </div>
         </div>
