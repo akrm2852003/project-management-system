@@ -23,8 +23,8 @@ const password = watch("password");
       const onSubmit = async (data) => {
           try {
               const response = await axios.post('https://upskilling-egypt.com:3003/api/v1/Users/Register', data);
-              console.log('Register successful:', response.data);
-              navigate('/verify-account');
+              // console.log('Register successful:', response.data);
+              // navigate('/verify-account');
                toast.success("Register successful");
            
           } catch (error) {
@@ -34,6 +34,7 @@ const password = watch("password");
               theme: "dark"
               }
            );
+            navigate('/verify-account');
              
           }
       }
@@ -96,7 +97,7 @@ const password = watch("password");
                             <Form.Control 
                             {...register("country",{
                              required:"country is required"
-                              })}  className="text-white rounded-0 form-control" type="Country" placeholder="Enter your country"
+                              })}  className="text-white rounded-0 form-control" type="text" placeholder="Enter your country"
                                style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}}/>
                                {errors.country && <div className="alert alert-danger"><p>{errors.country.message}</p></div>}
                           </Form.Group>
@@ -161,7 +162,7 @@ const password = watch("password");
                               <i className={`fa ${showConfirmPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
                             </span>
                           {errors.confirmPassword && (
-                          <div className="text-danger">
+                          <div className="alert alert-danger">
                             {errors.confirmPassword.message}
                           </div>
                           )}

@@ -31,6 +31,7 @@ let [showPassword, setShowPassword] = useState(false);
             theme: "dark"
             }
          );
+         
            
         }
     }
@@ -103,7 +104,7 @@ let [showPassword, setShowPassword] = useState(false);
                                             </Form.Group>
 
                                         {errors.password && <div className="text-danger">{errors.password.message}</div>}
-                                           <div className="links d-flex justify-content-between m-3 text-muted">
+                                           <div className="links d-flex justify-content-between mb-3 text-muted">
                                               <Link to='/register' className="text-white text-decoration-none" >Register Now ?</Link>
                                               <Link to='/forgetpass' className="text-white text-decoration-none" >Forget Password ?</Link>
                                            </div>

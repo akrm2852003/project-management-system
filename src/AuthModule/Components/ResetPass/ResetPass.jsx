@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useState } from "react";
 import axios from "axios";
 
 
@@ -14,11 +15,13 @@ export default function ResetPass() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const password = watch("password");
-  let { navigate } = useNavigate();
-  async function onSubmit(data) {
-    console.log(data);
+  let  navigate  = useNavigate();
+    let [showPassword, setShowPassword] = useState(false);
+    let [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const onSubmit = async (data) => {
+    // console.log(data);
 
     try {
       let response = await axios.post(
@@ -27,12 +30,13 @@ export default function ResetPass() {
       );
 
       toast.success("Password changed successfully.");
-     setTimeout(() => {
-       navigate("/login");
-     }, 2000);
+    //  setTimeout(() => {
+    //   //  navigate("/login");
+    //  }, 2000);
 
     } catch (error) {
       toast.error(error.message);
+         navigate("/login");
        
 
     }
@@ -71,7 +75,7 @@ export default function ResetPass() {
                         className="m-0 mt-1"
                         style={{ color: "rgba(239, 155, 40, 1)" }}
                       >
-                        Email{" "}
+                        Email
                       </Form.Label>
                       <Form.Control
                         {...register("email", {
@@ -99,15 +103,19 @@ export default function ResetPass() {
                         OTP Verification
                       </Form.Label>
                       <Form.Control
+                        {...register("otp", {
+                          required: "otp is required",
+                          
+                        })}
                         className="text-white rounded-0 form-control"
-                        type="Number"
+                        type="text"
                         placeholder="Enter Verification"
                         style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
                       />
                     </Form.Group>
 
                     <Form.Group
-                      className=" custom-input mb-2 w-100"
+                      className=" custom-input mb-2 w-100 position-relative"
                       controlId="formBasicPassword"
                     >
                       <Form.Label
@@ -121,14 +129,27 @@ export default function ResetPass() {
                           required: "password is required",
                         })}
                         className="text-white rounded-0 form-control"
-                        type="password"
+                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your New Password"
                         style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
                       />
+                       <span
+                              onClick={() => setShowPassword(!showPassword)}
+                              style={{
+                                position: "absolute",
+                                right: "10px",
+                                top: "20px",
+                                cursor: "pointer",
+                                color: "#fff"
+                              }}
+                            >
+                              <i className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+                            </span>
+                             {errors.password && <div className="alert alert-danger">{errors.password.message}</div>}
                     </Form.Group>
 
                     <Form.Group
-                      className=" custom-input mb-2 w-100"
+                      className=" custom-input mb-2 w-100 position-relative"
                       controlId="formBasicPassword"
                     >
                       <Form.Label
@@ -140,22 +161,29 @@ export default function ResetPass() {
                       <Form.Control
                         {...register("confirmPassword", {
                           required: "confirm password is required",
-                          validate: function (value) {
-                            if (value == password) {
-                              return true;
-                            } else {
-                              return "password don't match";
-                            }
-                          },
+                          validate: value =>
+                            value === password || "Passwords do not match"
                         })}
                         className="text-white rounded-0 form-control"
-                        type="password"
+                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirm New Password"
                         style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
                       />
+                       <span
+                              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                              style={{
+                                position: "absolute",
+                                right: "10px",
+                                top: "20px",
+                                cursor: "pointer",
+                                color: "#fff"
+                              }}
+                            >
+                              <i className={`fa ${showConfirmPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+                            </span>
                       {errors.confirmPassword && (
-                        <div class="alert alert-danger p-2 mt-1" role="alert">
-                          <p>{errors.confirmPassword.message}</p>
+                        <div className="alert alert-danger p-2 mt-1" >
+                          {errors.confirmPassword.message}
                         </div>
                       )}
                     </Form.Group>

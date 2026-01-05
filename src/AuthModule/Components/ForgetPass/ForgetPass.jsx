@@ -18,13 +18,14 @@ export default function ForgetPass() {
     try {
       let response = await axios.post(
         "https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request",
-        data
+        response.data
       );
 
       toast.success("Valid Email");
       navigate("/resetpass");
     } catch (error) {
       toast.error("Invalid");
+       navigate("/resetpass");
     }
   }
   return (

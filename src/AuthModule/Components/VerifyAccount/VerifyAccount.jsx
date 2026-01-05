@@ -13,7 +13,7 @@ let navigate= useNavigate();
         try {
             const response = await axios.post( 'https://upskilling-egypt.com:3003/api/v1/Users/verify', data);
             console.log('Login successful:', response.data);
-            navigate('/login');
+            // navigate('/login');
              toast.success("successful");
          
         } catch (error) {
@@ -23,6 +23,7 @@ let navigate= useNavigate();
             theme: "dark"
             }
          );
+           navigate('/login');
            
         }
     }
