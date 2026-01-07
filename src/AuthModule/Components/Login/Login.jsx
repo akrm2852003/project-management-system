@@ -25,6 +25,8 @@ let [showPassword, setShowPassword] = useState(false);
              toast.success("Login successful");
          
         } catch (error) {
+          console.log(error);
+          
          toast.error(error.response.data.message,
             {position: "top-right",
             autoClose: 5000,

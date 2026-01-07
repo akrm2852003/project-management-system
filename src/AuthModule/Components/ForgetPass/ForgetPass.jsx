@@ -17,14 +17,19 @@ export default function ForgetPass() {
     try {
       let response = await axios.post(
         "https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request",
-        response.data
+        data
       );
-
+    
+     
+      
       toast.success("Valid Email");
       navigate("/resetpass");
     } catch (error) {
-      toast.error("Invalid");
-      navigate("/resetpass");
+     
+      
+      
+      toast.error(error.message);
+       navigate("/resetpass");
     }
   }
   return (
@@ -37,7 +42,7 @@ export default function ForgetPass() {
             <div className="content">
               <div className="row justify-content-center align-items-center ">
                 <div className="form-container col-lg-6 col-md-7 col-sm-12">
-                  d
+                  
                   <div className="logo d-flex justify-content-center align-items-center mb-3">
                     <img src={logo} className="w-50" alt="this is logo image" />
                   </div>
@@ -77,7 +82,7 @@ export default function ForgetPass() {
                         style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
                       />
                       {errors.email && (
-                        <div class="alert alert-dark" role="alert">
+                        <div className="alert alert-dark" role="alert">
                           <p>{errors.email.message}</p>
                         </div>
                       )}

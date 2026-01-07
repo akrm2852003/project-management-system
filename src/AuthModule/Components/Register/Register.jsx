@@ -29,6 +29,8 @@ function Register() {
       );
       // console.log('Register successful:', response.data);
       // navigate('/verify-account');
+      console.log(response);
+      
       toast.success("Register successful");
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -79,7 +81,9 @@ function Register() {
                         Name{" "}
                       </Form.Label>
                       <Form.Control
-                        {...register("name", { required: "Name is required" })}
+                        {...register("userName", {
+                          required: "Name is required",
+                        })}
                         className="text-white rounded-0 form-control"
                         type="text"
                         placeholder="Enter your Name"
@@ -157,7 +161,7 @@ function Register() {
                         Phone
                       </Form.Label>
                       <Form.Control
-                        {...register("phone", {
+                        {...register("phoneNumber", {
                           required: "Phone is required",
                         })}
                         type="tel"
