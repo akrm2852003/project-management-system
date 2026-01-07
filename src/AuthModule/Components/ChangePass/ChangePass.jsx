@@ -54,7 +54,7 @@ export default function ChangePass() {
                   <div className="title">
                     <span style={{ color: "white" }}>Welcome to PMS</span>
                     <h2 style={{ color: "rgba(239, 155, 40, 1)" }}>
-                      Change your Account
+                      Change Password
                     </h2>
                     <div className="login-line mb-4"></div>
                   </div>
