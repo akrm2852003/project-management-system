@@ -49,15 +49,16 @@ function Register() {
             <div className="bg-login"></div>
             <div className="log-img"></div>
           </div>
-          <div className="content">
-            <div className="row justify-content-center align-items-center ">
-              <div className="form-container col-lg-6 col-md-7 col-sm-12  ">
-                <div className="logo d-flex justify-content-center align-items-center mb-3">
+          <div className="content ">
+            <div className="row justify-content-center align-items-center  ">
+              <div className="form-container col-lg-8 col-xl-7   col-md-10 col-sm-12  ">
+                <div className=" logo d-flex justify-content-center align-items-center mb-3">
                   <img src={logo} className="w-50" alt="this is logo image" />
                 </div>
                 <Form
+
                   onSubmit={handleSubmit(onSubmit)}
-                  className="login-form p-4 rounded-3 justify-content-center align-items-center"
+                  className=" my-bg p login-form p-5 rounded-3 justify-content-center align-items-center"
                 >
                   <div className="title">
                     <span style={{ color: "white" }}>Welcome to PMS</span>

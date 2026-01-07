@@ -169,3 +169,7 @@ input:-webkit-autofill:active {
 } */
 
 
+.my-bg{
+  background-color:  rgba(49, 74, 89, 0.9)
+ ;
+}
