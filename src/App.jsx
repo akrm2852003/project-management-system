@@ -1,15 +1,24 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authlayout from "./SharedModule/Components/AuthLayout/Authlayout.jsx";
 import Notfound from "./SharedModule/Components/NotFound/NotFound.jsx";
-import WelcomePage from './AuthModule/Components/WelcomePage/WelcomePage.jsx'
+import WelcomePage from "./AuthModule/Components/WelcomePage/WelcomePage.jsx";
 import Login from "./AuthModule/Components/Login/Login.jsx";
 import Register from "./AuthModule/Components/Register/Register.jsx";
 import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount.jsx";
 import Changepass from "./AuthModule/Components/ChangePass/ChangePass.jsx";
-import Forgetpass from "./AuthModule/Components/Forgetpass/Forgetpass.jsx";
+import Forgetpass from "./AuthModule/Components/ForgetPass/ForgetPass.jsx";
 import Resetpass from "./AuthModule/Components/ResetPass/ResetPass.jsx";
+import { ToastContainer } from "react-toastify";
+import Masterlayout from './SharedModule/Components/MasterLayout/MasterLayout';
+import NotFound from "./SharedModule/Components/NotFound/NotFound.jsx";
+import Dashboard from './DashboardModule/component/Dashboard/Dashboard';
+import Porjects from "./managermodule/components/projects/projects.jsx";
+import PorjectData from "./managermodule/components/projectdata/projectdata.jsx";
+import Employeetask from './Employeemodule/component/employeetask/employeetask';
+import Employeeproject from './Employeemodule/component/employeeproject/employeeproject';
+import Tasks from "./managermodule/components/tasks/tasks.jsx";
+import TaskData from "./managermodule/components/taskdata/taskdata.jsx";
 
 function App() {
   const routes = createBrowserRouter([
@@ -28,13 +37,31 @@ function App() {
         { path: "resetpass", element: <Resetpass /> },
       ],
     },
+    {
+      path:'Dashboard',
+      element:<Masterlayout/>,
+      errorElement:<NotFound/>,
+      children:[
+        {index:true,element:<Dashboard/>},
+        {path:'projects',element:<Porjects/>},
+        {path:'projectdata',element:<PorjectData/>},
+        {path:'projectdata/:id?',element:<PorjectData/>},
+        {path:'tasks',element:<Tasks/>},
+        {path:'taskdata',element:<TaskData/>},
+        {path:'taskdata/:id?',element:<TaskData/>},
+        {path:'employeetask',element:<Employeetask/>},
+        {path:'employeeproject',element:<Employeeproject/>},
+
+      ]
+      },
   ]);
 
   return (
     <>
-    <RouterProvider router={routes}></RouterProvider>
+      <RouterProvider router={routes}></RouterProvider>
+      <ToastContainer  />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

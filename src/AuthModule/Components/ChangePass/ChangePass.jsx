@@ -14,7 +14,7 @@ function Changepass(){
                          <div className="container-fluid">
                                 <div className="row  min-vh-100 justify-content-center align-items-center">
                                   
-                                        <div className="form-container col-md-7 col-lg-5 col-sm-12">
+                                        <div className="form-container col-lg-5  col-md-6  col-sm-12">
                                             <div className="logo d-flex justify-content-center align-items-center mb-1">
                                                   <img src={logo} className="w-50"  alt="this is logo image" />
                                             </div>
@@ -30,15 +30,59 @@ function Changepass(){
                                           <Form.Control className="text-white rounded-0 form-control" type="password" placeholder="Enter your Old Password"  style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}} />
                                         </Form.Group>
 
-                                           <Form.Group className=" custom-input mb-3 w-100" controlId="formBasicPassword">
-                                          <Form.Label className="m-0 mt-1" style={{color:"rgba(239, 155, 40, 1)"}}>New Password</Form.Label>
-                                          <Form.Control className="text-white rounded-0 form-control" type="password" placeholder="Enter your New Password"  style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}} />
-                                        </Form.Group>
+                  <Form.Group
+                    className=" custom-input mb-3 w-100"
+                    controlId="formBasicNewPassword"
+                  >
+                    <Form.Label
+                      className="m-0 mt-1"
+                      style={{ color: "rgba(239, 155, 40, 1)" }}
+                    >
+                      New Password
+                    </Form.Label>
+                    <Form.Control
+                      {...register("newPassword", {
+                        required: "New Password Is Required",
+                      })}
+                      className="text-white rounded-0 form-control"
+                      type="password"
+                      placeholder="Enter your New Password"
+                      style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
+                    />
+                  </Form.Group>
 
-                                        <Form.Group className=" custom-input mb-3 w-100" controlId="formBasicPassword">
-                                          <Form.Label className="m-0 mt-1" style={{color:"rgba(239, 155, 40, 1)"}}>Confirm New Password</Form.Label>
-                                          <Form.Control className="text-white rounded-0 form-control" type="password" placeholder="Confirm New Password"  style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}} />
-                                        </Form.Group>
+                  <Form.Group
+                    className=" custom-input mb-3 w-100"
+                    controlId="formBasicConfirmNewPassword"
+                  >
+                    <Form.Label
+                      className="m-0 mt-1"
+                      style={{ color: "rgba(239, 155, 40, 1)" }}
+                    >
+                      Confirm New Password
+                    </Form.Label>
+                    <Form.Control
+                      {...register("confirmNewPassword", {
+                        required: "confirm New password is required",
+                        validate: function (value) {
+                          if (value === newPassword) {
+                            return true;
+                          } else {
+                            return "New password don't match";
+                          }
+                        },
+                      })}
+                      className="text-white rounded-0 form-control"
+                      type="password"
+                      placeholder="Confirm New Password"
+                      style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
+                    />
+                    {errors.confirmNewPassword && (
+                      <div class="alert alert-danger p-2 mt-1" role="alert">
+                        <p>{errors.confirmNewPassword.message}</p>
+                      </div>
+                    )}
+                  </Form.Group>
 
                                          
                                          <Button type="submit" className="w-100 border-0 p-2 rounded-5 mt-3 " style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>
@@ -49,9 +93,9 @@ function Changepass(){
                                     </div>
                              </div>
                              
-                        
+                        </div>
                     </div> 
-                </div> 
+           
         </>
     )
 

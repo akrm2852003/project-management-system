@@ -9,14 +9,14 @@ function Forgetpass(){
     return(
         <>
          <div className="auth-container">
-                <div className="container-fluid ">
+                <div className="container-fluid w-100 vh-100 ">
                 <div className="images">
                      <div className="bg-login"></div>
                      <div className="log-img"></div>
                  <div className="content">
-                        <div className="row min-vh-100 justify-content-center align-items-center ">
-                          
-                                <div className="form-container col-md-7 col-lg-5 col-sm-12 ">
+                        <div className="row min-vh-100 justify-content-center align-items-center">
+                   
+                                <div className="form-container col-lg-5  col-md-6  col-sm-12 ">
                                    <div className="logo d-flex justify-content-center align-items-center mb-3">
                                         <img src={logo} className="w-50"  alt="this is logo image" />
                                     </div>
@@ -44,10 +44,10 @@ function Forgetpass(){
                                 </div>
                             </div>
                      </div>
-                     
+                     </div>
                 </div>
             </div> 
-        </div> 
+      
         </>
     )
 
