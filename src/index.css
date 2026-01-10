@@ -1,82 +1,71 @@
-*{
-    margin: 0 !important;
-    padding: 0 !important;
+* {
+  margin: 0 !important;
+  padding: 0 !important;
 }
-
-
-.auth-container{
+.auth-container {
   width: 100%;
   height: 100vh;
   background-color: rgba(14, 56, 47, 1);
- 
 }
-.images{
+.images {
   position: relative;
-   width: 100%;
+  width: 100%;
   height: 100vh;
 }
-.bg-overlay{
-   position: absolute; 
-   right: 0;
-   top: 0;
-  z-index: 0; 
+.bg-overlay {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
 }
- .sec-img{
+.sec-img {
   width: 260px;
   height: 350px;
-   position: absolute; 
-   bottom: 0;
-   z-index: 1;
-   background-image: url(assets/images/home-2.png); 
-   /* background-color: aliceblue; */
-} 
-.form-container{
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-image: url(assets/images/home-2.png); /* background-color: aliceblue; */
+}
+.form-container {
   position: absolute;
   z-index: 2;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  /* background-color: rgba(49, 89, 81, 0.9); */
-
-} 
-.login-form{
+  transform: translate(-50%, -50%);
+}
+.login-form {
   background-color: rgba(49, 89, 81, 0.9);
   margin-top: auto;
-
 }
-/* ////login////// */
-
-.bg-login{
-   position: absolute; 
-   right: 0;
-   top: 0;
-   z-index: 0; 
-   width: 440px;
-   height: 100%;
-   background-image: url(assets/images/login-top.png); 
-   background-size: cover;
-
-  
+.bg-login {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  width: 440px;
+  height: 100%;
+  background-image: url(assets/images/login-top.png);
+  background-size: cover;
 }
- .log-img{
+.log-img {
   width: 360px;
   height: 450px;
-   position: absolute; 
-   bottom: 0;
-   z-index: 1;
-   background-image: url(assets/images/login-down.png); 
-   /* background-color: aliceblue; */
-   background-size: cover;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-image: url(assets/images/login-down.png);
+  /* background-color: aliceblue; */
+  background-size: cover;
 }
-.login-line{
+.login-line {
   width: 15px;
   height: 2px;
   background-color: rgba(239, 155, 40, 1);
 }
-.title span{
+.title span {
   font-size: 13px;
 }
-.form-control{ 
+.form-control {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -98,78 +87,208 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: white !important;
   transition: background-color 9999s ease-in-out 0s;
 }
-.custom-input .form-control::placeholder{
+.custom-input .form-control::placeholder {
   color: white !important;
   opacity: 1 !important;
 }
-
-/* ///////forget///// */
-.bg-forget{
-   position: absolute; 
-   right: 0;
-   top: 0;
-   z-index: 0; 
-   width: 440px;
-   height: 100%;
-   background-image: url(assets/images/forget-top.png); 
-   background-size: cover;
-
-  
+.bg-forget {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  width: 440px;
+  height: 100%;
+  background-image: url(assets/images/forget-top.png);
+  background-size: cover;
 }
- .forget-img{
+.forget-img {
   width: 360px;
   height: 450px;
-   position: absolute; 
-   bottom: 0;
-   z-index: 1;
-   background-image: url(assets/images/forget-down.png); 
-   /* background-color: aliceblue; */
-   background-size: cover;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-image: url(assets/images/forget-down.png);
+  /* background-color: aliceblue; */
+  background-size: cover;
 }
-/* //////////////reset and register////// */
-.bg-reset{
-   position: absolute; 
-   right: 0;
-   top: 0;
-   z-index: 0; 
-   width: 440px;
-   height: 100%;
-   background-image: url(assets/images/reset-top.png); 
-   background-size: cover;
+.bg-reset {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  width: 440px;
+  height: 100%;
+  background-image: url(assets/images/reset-top.png);
+  background-size: cover;
 }
- .reset-img{
+.reset-img {
   width: 360px;
   height: 450px;
-   position: absolute; 
-   bottom: 0;
-   z-index: 1;
-   background-image: url(assets/images/reset-down.png); 
-   /* background-color: aliceblue; */
-   background-size: cover;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-image: url(assets/images/reset-down.png);
+  /* background-color: aliceblue; */
+  background-size: cover;
 }
-.circle{
+.circle {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: aquamarine;
   margin: auto;
 }
-
-/* .white-placeholder::placeholder {
+.my-bg {
+  background-color: rgba(49, 74, 89, 0.9);
+}
+.line {
+  width: 1px;
+  height: 25px;
+  background-color: black;
+}
+header {
+  background-image: url(../src/assets/images/home-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50%;
+}
+.sidebar-container .css-dip3t8 {
+  /* min-width: 100%; */
+  height: 100vh;
+  background: #0e382f;
   color: white;
-  opacity: 1;
+  padding: 20px;
+}
+.sidebar-container .css-1t8x7v1 > .ps-menu-button {
+  gap: 20px;
+}
+.sidebar-container .css-1t8x7v1 > .ps-menu-button {
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+.sidebar-container .css-1t8x7v1 > .ps-menu-button:hover {
+  background: #ef9b284d;
+  color: #ef9b28;
+}
+.sidebar-container .icon i {
+  height: 40px;
+  align-items: center;
+  background-color: #ef9b28;
+  display: flex;
+  justify-content: center;
+  width: 20px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  color: white;
+}
+nav i {
+  color: #ef9b28;
+}
+.active {
+  background-color: #009247;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
 }
 
-.white-placeholder::-webkit-input-placeholder {
+.not-active {
+  background-color: #922e25b2;
   color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
 }
-
-.white-placeholder:-ms-input-placeholder {
-  color: white;
+table tr {
+  padding: 5px;
+}
+.nav-line {
+  width: 1px;
+  height: 30px;
+  margin-top: 7px !important;
+  background-color: rgb(179, 179, 179);
+}
+.user-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  /* background-image: url(); */
+  background-color: brown;
+}
+.navbar-icon i {
+  color: rgba(239, 155, 40, 1);
+  font-size: 28px;
+}
+/* .navbar-icon{
+  position: relative;
+}
+.nav-bell{
+  position: absolute;
+  z-index: 0;
 } */
+/* .icon-count{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(239, 155, 40, 1);
+  color: white;
+  position: absolute;
+  z-index: 1;
+} */
+/* /////////////////sidebar//////// */
+
+.sidebar-icon i {
+  background-color: rgba(239, 155, 40, 1);
+  color: white;
+  border-top-right-radius: 5px;
+}
+
+.sidebar-container .ps-sidebar-container {
+  color: white;
+  min-height: 100vh;
+  background-color: rgba(14, 56, 47, 1);
+}
+.sidebar-container .ps-menu-button {
+  transition: all 0.2s;
+}
+.sidebar-container .ps-menu-button:hover {
+  background-color: rgba(239, 155, 40, 0.3) !important;
+}
+/* //////header////////// */
+.header-container {
+  height: 250px;
+  background-image: url(assets/images/home-bg.png);
+  background-size: cover;
+}
+
+.table-head th {
+  background-color: rgba(49, 89, 81, 0.9) !important;
+  /* background-color: rgba(242, 242, 242, 0.9) !important; */
+  color: white !important;
+  padding: 10px !important;
+  border-right: 1px solid gray !important;
+  font-weight: 400;
+}
+
+.table-body td {
+  padding: 10px !important;
+}
 
 
-.my-bg{
-  background-color:  rgba(49, 74, 89, 0.9)
- ;
+/* /////////////////////////////// */
+
+.form-input {
+  border: 1px solid rgba(242, 242, 242, 0.9) !important;
+}
+.btns button {
+  width: 100px !important;
+}
+.add-proj {
+  margin: auto !important;
+}
+
+.dashboard-container{
+  background-color: #eee;
+}
+.card-title {
+  border-left: 3px solid #ef9b28;
 }

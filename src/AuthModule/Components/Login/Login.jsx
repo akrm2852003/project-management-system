@@ -20,6 +20,7 @@ let [showPassword, setShowPassword] = useState(false);
     const onSubmit = async (data) => {
         try {
             const response = await axios.post('https://upskilling-egypt.com:3003/api/v1/Users/Login', data);
+            localStorage.setItem('token',response.data.token);
             console.log('Login successful:', response.data);
             navigate('/dashboard');
              toast.success("Login successful");
