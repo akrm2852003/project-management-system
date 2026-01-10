@@ -151,8 +151,9 @@ input:-webkit-autofill:active {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: aquamarine;
-  margin: auto;
+  background-image: url(assets/images/user.jpg);
+  background-size: cover;
+  margin: auto !important;
 }
 
 /* .white-placeholder::placeholder {
@@ -172,4 +173,112 @@ input:-webkit-autofill:active {
 .my-bg{
   background-color:  rgba(49, 74, 89, 0.9)
  ;
+}
+
+
+/* ////////////////////////////////////////////////// */
+
+
+
+/* //////////navbar////////// */
+
+/* .navbar-container{
+  border-right: 1px solid gray;
+} */
+/* .navbar{
+  position: fixed !important;
+} */
+.nav-line{
+  width: 1px;
+  height: 30px;
+  margin-top: 7px !important;
+  background-color: rgb(179, 179, 179);
+
+}
+.user-img{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  /* background-image: url(); */
+  background-color: brown;
+}
+.navbar-icon i{
+  color: rgba(239, 155, 40, 1);
+  font-size: 28px;
+
+}
+/* .navbar-icon{
+  position: relative;
+}
+.nav-bell{
+  position: absolute;
+  z-index: 0;
+} */
+/* .icon-count{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(239, 155, 40, 1);
+  color: white;
+  position: absolute;
+  z-index: 1;
+} */
+/* /////////////////sidebar//////// */
+
+.sidebar-icon i{
+  background-color: rgba(239, 155, 40, 1);
+  color: white;
+  border-top-right: 5px;
+}
+
+.sidebar-container .ps-sidebar-container{ 
+    color: white;
+    min-height: 100vh;
+    background-color: rgba(14, 56, 47, 1);
+}
+.sidebar-container .ps-menu-button{
+    transition: all 0.2s;
+} 
+.sidebar-container .ps-menu-button:hover {
+    background-color: rgba(239, 155, 40, 0.3) !important;
+}  
+/* //////header////////// */
+.header-container{
+  height: 250px;
+  background-image: url(assets/images/home-bg.png);
+  background-size: cover;
+}
+
+
+.table-head th{
+  background-color: rgba(49, 89, 81, 0.9) !important;
+  /* background-color: rgba(242, 242, 242, 0.9) !important; */
+  color: white !important;
+  padding: 10px !important;
+  border-right: 1px solid gray !important;
+  font-weight: 400;
+}
+
+.table-body td{
+  padding: 10px !important;
+}
+
+/* /////////////////////////////// */
+
+.form-input{
+  border: 1px solid rgba(242, 242, 242, 0.9) !important;
+  color: black !important;
+}
+.btns button{
+  width: 100px !important;
+}
+.add-proj{
+  margin: auto!important;
+}
+
+/* ////////////////////////////////// */
+.td-style{
+    background-color: rgba(49, 89, 81, 0.9) !important;
+    border-radius: 20px;
+    
 }

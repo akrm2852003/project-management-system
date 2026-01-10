@@ -3,13 +3,14 @@ import logo from '../../../assets/images/logo2.svg'
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
 function VerifyAccount(){
         let{ register, handleSubmit, formState: { errors } } = useForm();
-let navigate= useNavigate();
-    const onSubmit = async (data) => {
+        let navigate= useNavigate();
+        const onSubmit = async (data) => {
         try {
             const response = await axios.post( 'https://upskilling-egypt.com:3003/api/v1/Users/verify', data);
             console.log('Login successful:', response.data);
@@ -34,9 +35,10 @@ let navigate= useNavigate();
                          <div className="images">
                              <div className="bg-forget"></div>
                              <div className="forget-img"></div>
-                                <div className="row justify-content-center align-items-center ">
+                         <div className="container-fluid">
+                                <div className="row  min-vh-100 justify-content-center align-items-center">
                                    
-                                        <div className="form-container col-lg-6 col-md-7 col-sm-12  ">
+                                        <div className="form-container col-lg-5  col-md-6  col-sm-12 ">
                                             <div className="logo d-flex justify-content-center align-items-center mb-3">
                                                   <img src={logo} className="w-50"  alt="this is logo image" />
                                             </div>
@@ -83,9 +85,12 @@ let navigate= useNavigate();
                                         </div>
                                   
                              </div>
+                             
+                        </div>
                     </div> 
-                       </div>
                 </div> 
+                </div>
+             
         </>
     )
 

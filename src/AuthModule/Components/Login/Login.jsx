@@ -20,7 +20,8 @@ let [showPassword, setShowPassword] = useState(false);
     const onSubmit = async (data) => {
         try {
             const response = await axios.post('https://upskilling-egypt.com:3003/api/v1/Users/Login', data);
-            console.log('Login successful:', response.data);
+            localStorage.setItem('token',response.data.token)
+            console.log(response.data);
             navigate('/dashboard');
              toast.success("Login successful");
          
@@ -40,14 +41,15 @@ let [showPassword, setShowPassword] = useState(false);
  
    return(
         <> 
-            <div className="auth-container ">
-                <div className="container-fluid  ">
+            <div className="auth-container">
+                <div className="container-fluid w-100 vh-100 ">
                 <div className="images">
                      <div className="bg-login "></div>
                      <div className="log-img"></div>
                  <div className="content">
-                        <div className="row justify-content-center align-items-center ">
-                           <div className="form-container col-lg-6 col-md-7 col-sm-12  ">
+                        <div className="row min-vh-100 justify-content-center align-items-center">
+                            
+                                <div className="form-container col-lg-5  col-md-6  col-sm-12  ">
                                    <div className="logo d-flex justify-content-center align-items-center mb-3">
                                         <img src={logo} className="w-50"  alt="this is logo image" />
                                     </div>
@@ -112,16 +114,18 @@ let [showPassword, setShowPassword] = useState(false);
                                            </div>
                                         
                                          <Button type="submit" className="w-100 border-0 rounded-5 p-2 align-items-center" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>
-                                           Login
+                                           Log In
                                          </Button>
                                         </Form>
                                     
                                 </div>
                             </div>
-                     </div>
-                     </div>
+                     
+                     
                 </div>
             </div> 
+            </div>
+            </div>
         </>
     )
 }

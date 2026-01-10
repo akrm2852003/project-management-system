@@ -1,50 +1,25 @@
-import logo from "../../../assets/images/logo2.svg";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useState } from "react";
-import axios from "axios";
+import React from "react";
+import logo from '../../../assets/images/logo2.svg'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-export default function ResetPass() {
-  let {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({ mode: "onChange" });
-  const password = watch("password");
-  let navigate = useNavigate();
-  let [showPassword, setShowPassword] = useState(false);
-  let [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const onSubmit = async (data) => {
-    // console.log(data);
 
-    try {
-      let response = await axios.post(
-        "https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request",
-        data
-      );
 
-      toast.success("Password changed successfully.");
-    } catch (error) {
-      toast.error(error.message);
-      navigate("/login");
-    }
-  };
-  return (
-    <>
-      <div className="auth-container">
-        <div className="images">
-          <div className="bg-login"></div>
-          <div className="log-img"></div>
-          <div className="container-fluid">
-            <div className="row justify-content-center align-items-center ">
-              <div className="form-container col-lg-6 col-md-7 col-sm-12">
-                <div className="logo d-flex justify-content-center align-items-center mb-2">
-                  <img src={logo} className="w-50" alt="this is logo image" />
-                </div>
+function Resetpass(){
+    return(
+        <>
+        <div className="auth-container">
+                <div className="images">
+                     <div className="bg-login"></div>
+                     <div className="log-img"></div>
+                 <div className="container-fluid">
+                    
+                        <div className="row min-vh-100 justify-content-center align-items-center">
+                           
+                                <div className="form-container col-lg-5  col-md-6  col-sm-12">
+                                   <div className="logo d-flex justify-content-center align-items-center mb-2">
+                                        <img src={logo} className="w-50"  alt="this is logo image" />
+                                    </div>
 
                 <Form
                   onSubmit={handleSubmit(onSubmit)}
@@ -192,19 +167,21 @@ export default function ResetPass() {
                     )}
                   </Form.Group>
 
-                  <Button
-                    type="submit"
-                    className="w-100 border-0 p-2 rounded-5 mt-3 "
-                    style={{ backgroundColor: "rgba(239, 155, 40, 1)" }}
-                  >
-                    Save
-                  </Button>
-                </Form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+                                        
+                                         <Button type="submit" className="w-100 border-0 p-2 rounded-5 mt-3 " style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>
+                                           Save
+                                         </Button>
+                                        </Form>
+                                    
+                                </div>
+                            </div>
+                     </div>
+                     
+                </div>
+            </div> 
+       
+        </>
+    )
+
 }
+export default Resetpass;
