@@ -149,7 +149,7 @@ function Porjects() {
                           <li class="fa-regular fa-eye mx-2"></li>View
                         </li>
                         <Link
-                          to={`/dashboard/projectdata/${proj.id}`}
+                          to={`/dashboard/projects-data/${proj.id}`}
                           style={{ textDecoration: "none" }}
                         >
                           <li className="dropdown-item text-success">

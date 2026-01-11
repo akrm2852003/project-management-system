@@ -1,36 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from '../../../assets/images/logo2.svg'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 
 
 function Resetpass(){
-  let {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const password = watch("password");
-  let { navigate } = useNavigate();
-  async function onSubmit(data) {
-    console.log(data);
+ let {
+   register,
+   handleSubmit,
+   watch,
+   formState: { errors },
+ } = useForm({ mode: "onChange" });
+ const password = watch("password");
+ let navigate = useNavigate();
+ let [showPassword, setShowPassword] = useState(false);
+ let [showConfirmPassword, setShowConfirmPassword] = useState(false);
+ const onSubmit = async (data) => {
+   // console.log(data);
 
-    try {
-      let response = await axios.post(
-        "https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request",
-        data
-      );
+   try {
+     let response = await axios.post(
+       "https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request",
+       data
+     );
 
-      toast.success("Password changed successfully.");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  }
+     toast.success("Password changed successfully.");
+      navigate("/login");
+   } catch (error) {
+     toast.error(error.message);
+    
+   }
+ };
     return(
         <>
         <div className="auth-container">

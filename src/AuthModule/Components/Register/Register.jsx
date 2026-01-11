@@ -28,7 +28,7 @@ function Register() {
         data
       );
       // console.log('Register successful:', response.data);
-      // navigate('/verify-account');
+      navigate('/verify-account');
       console.log(response);
       
       toast.success("Register successful");
@@ -38,7 +38,7 @@ function Register() {
         autoClose: 5000,
         theme: "dark",
       });
-      navigate("/verify-account");
+     
     }
   };
   return (

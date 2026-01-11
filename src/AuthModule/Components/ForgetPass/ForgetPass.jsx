@@ -2,6 +2,10 @@ import React from "react";
 import logo from '../../../assets/images/logo2.svg'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 
 
@@ -29,18 +33,20 @@ export default function Forgetpass() {
   return (
     <>
       <div className="auth-container">
-        <div className="container-fluid w-100 vh-100 ">
+        <div className="container-fluid ">
           <div className="images">
             <div className="bg-login"></div>
             <div className="log-img"></div>
             <div className="content">
-              <div className="row min-vh-100 justify-content-center align-items-center">
-                <div className="form-container col-lg-5  col-md-6  col-sm-12 ">
+              <div className="row justify-content-center align-items-center ">
+                <div className="form-container col-lg-6 col-md-7 col-sm-12">
                   <div className="logo d-flex justify-content-center align-items-center mb-3">
                     <img src={logo} className="w-50" alt="this is logo image" />
                   </div>
-
-                  <Form className="login-form p-5 rounded-3 justify-content-center align-items-center">
+                  <Form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="login-form p-5 rounded-3 justify-content-center align-items-center"
+                  >
                     <div className="title">
                       <span style={{ color: "white" }}>Welcome to PMS</span>
                       <h2 style={{ color: "rgba(239, 155, 40, 1)" }}>
@@ -60,11 +66,23 @@ export default function Forgetpass() {
                         Email{" "}
                       </Form.Label>
                       <Form.Control
+                        {...register("email", {
+                          required: "email is required",
+                          pattern: {
+                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                            message: "should be valid mail",
+                          },
+                        })}
                         className="text-white rounded-0 form-control"
                         type="email"
                         placeholder="Enter email"
                         style={{ backgroundColor: "rgba(49, 89, 81, 0.9)" }}
                       />
+                      {errors.email && (
+                        <div className="alert alert-dark" role="alert">
+                          <p>{errors.email.message}</p>
+                        </div>
+                      )}
                     </Form.Group>
 
                     <Button

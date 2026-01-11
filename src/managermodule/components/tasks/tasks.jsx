@@ -101,7 +101,7 @@ function Tasks() {
             />
           </div>
 
-          <Table className=""   striped>
+          <Table className="" striped>
             <thead>
               <tr className="table-head">
                 <th>
@@ -149,7 +149,7 @@ function Tasks() {
                           <li class="fa-regular fa-eye mx-2"></li>View
                         </li>
                         <Link
-                          to={`/dashboard/taskdata/${task.id}`}
+                          to={`/dashboard/tasks-data/${task.id}`}
                           style={{ textDecoration: "none" }}
                         >
                           <li className="dropdown-item text-success">
@@ -169,8 +169,6 @@ function Tasks() {
               ))}
             </tbody>
           </Table>
-
-
         </div>
       ) : (
         <NoData />
