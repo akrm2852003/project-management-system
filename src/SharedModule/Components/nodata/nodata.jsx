@@ -1,17 +1,9 @@
-import React from "react";
-import nodata from "../../../assets/images/nodata.jpg";
-
-const Nodata =()=> {
-    return(
-       <>
-        <div className="text-center mt-2">
-            <img src={nodata} />
-            <h5>OOops, There is nodata</h5>
-           
-        </div>
-       </>
-
-    )
-    
+import React from 'react'
+import noDataImage from '../../../Assets/Images/no-data.png';
+export default function NoData() {
+  return (
+    <div>
+     <img src={noDataImage} alt="" />   
+    </div>
+  )
 }
-export default Nodata;

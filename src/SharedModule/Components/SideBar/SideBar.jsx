@@ -1,31 +1,35 @@
-import React from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+
+import React, { useState } from 'react'
+import { Sidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
+export default function SideBar() {
+  const [isCollapsed, setIsCollapsed ] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed)
+  }
+  return (
+    <>
+  <div className="sidebar-container ">
+    <div className="icon bg-info">
 
+    </div>
+      <Sidebar collapsed={isCollapsed} >
+  <Menu  className='py-4 ps-4'>
+   <div onClick={toggleSidebar} className="icon d-flex justify-content-end align-items-center  "> 
+    {isCollapsed?  <i className="fa-solid fa-angle-right"></i>:
+    <i className="fa-solid fa-angle-left"></i>}
+    
+   
+   </div>
+    <MenuItem component={<Link to="/dashboard" />} icon={<i className="fa-solid fa-users "></i>}> Home </MenuItem>
+    <MenuItem component={<Link to="/dashboard/user-list" />} icon={<i className="fa-solid fa-users "></i>}> Users </MenuItem>
+    <MenuItem component={<Link to="/dashboard/projects" />} icon={<i className="fa-solid fa-project-diagram"></i>}> Projects </MenuItem>
+    <MenuItem component={<Link to="/dashboard/tasks" />} icon={<i className="fa-solid fa-tasks"></i>}> Tasks </MenuItem>
+  </Menu>
+</Sidebar>
 
-const SideBar=({iscollapsed,setiscollapsed})=>{
-     const toggleCollapse =()=>{
-        setiscollapsed(!iscollapsed)
-    }
-    return(
-        <>
-        <div className="sidebar-container vh-100 text-white ">
-          
-            <Sidebar collapsed={iscollapsed}>
-                <div  className="sidebar-icon text-end fs-5" onClick={toggleCollapse}>
-                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+  </div>
+     </>
+  )
 
-                </div>
-                <Menu className="p-3 pt-0">
-                    <MenuItem component={<Link to="/dashboard" />}><i class="fa fa-home mx-3"  aria-hidden="true"></i>Home</MenuItem>
-                    <MenuItem  component={<Link to="#"/>}><i class="fa fa-users mx-3" aria-hidden="true"></i>Users</MenuItem>
-                    <MenuItem  component={<Link to="/dashboard/projects"/>}><i class="fa fa-list-ul mx-3" aria-hidden="true"></i>Projects</MenuItem>
-                    <MenuItem  component={<Link to="/dashboard/tasks"/>}><i class="fa fa-tasks mx-3" aria-hidden="true"></i>Tasks</MenuItem>
-                </Menu>
-            </Sidebar>
-        </div>
-        </>
-
-    )
 }
-export default SideBar;
