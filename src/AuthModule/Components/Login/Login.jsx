@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 // import logintop from '../../../assets/images/login-top.png';
 import logo from "../../../assets/images/logo2.svg";
 import Button from "react-bootstrap/Button";
@@ -8,9 +8,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
-// import { AuthContext } from "../../../context/Authcontext";
-
+import { AuthContext } from "../../../AuthContext/AuthContext";
 export default function Login() {
+  let { saveLoginData } = useContext(AuthContext);
   let {
     register,
     handleSubmit,
@@ -27,7 +27,7 @@ export default function Login() {
       );
 
       localStorage.setItem("token", response.data.token);
-      console.log(response.data);
+      saveLoginData()
 
       navigate("/dashboard");
       toast.success("Login successful");

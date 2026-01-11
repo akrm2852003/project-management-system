@@ -407,3 +407,19 @@ table tr {
   border-left: 3px solid #ef9b28;
 } */
 
+
+
+.search-style{
+  border: 1px solid rgba(38, 56, 90, 0.25);
+  border-radius: 30px;
+  padding: 5px 15px 10px;
+ 
+}
+.form-style {
+  color: black !important;
+  background-color: white; 
+  
+}
+.form-style:focus{
+  color: black !important;
+}

@@ -9,7 +9,7 @@ import {
 import { USERS_URL } from "../service/api.js";
 import { axiosInstance } from "../service/urls.js";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [loginData, setLoginData] = useState(null);

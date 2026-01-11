@@ -83,48 +83,77 @@ function PorjectData(){
                     updateProj();
         
          },[])
-    return(
-        <>
+    return (
+      <>
         <div className="project-details d-flex justify-content-between mt-1 p-4 pt-3 pb-2 bg-white">
-            <div className="pro-title">
-                <p ><i class="fa fa-arrow-left text-muted mx-1 mb-2" onClick={()=>{navigate("/dashboard/projects")}} aria-hidden="true"></i>View All Projects</p>
-                <h2>Add New Project</h2>
-            </div>
+          <div className="pro-title">
+            <p>
+              <i
+                className="fa fa-arrow-left text-muted mx-1 mb-2"
+                onClick={() => {
+                  navigate("/dashboard/projects");
+                }}
+                aria-hidden="true"
+              ></i>
+              View All Projects
+            </p>
+            <h2>Add New Project</h2>
+          </div>
         </div>
         <div className="w-100 ">
-        <div className="add-proj w-75 bg-white rounded-4 mt-4">
-            <form className="p-5 text-black" onSubmit={handleSubmit(onSubmit)}>
-            <div>
+          <div className="add-proj w-75 bg-white rounded-4 mt-4">
+            <form className="p-5 form-style" onSubmit={handleSubmit(onSubmit)}>
+              <div>
                 <h5 className="text-muted">Title</h5>
-                  <input {...register('title',{required:"field is required"})} type="text"  class="form-control my-2" 
-                   placeholder="Title"
-                   defaultValue={update?.data.title}
-                  
-                   aria-label="Title" aria-describedby="basic-addon1"/>
-                   {errors.title&&<span className="bg-danger">{errors.title.message}</span>}
+                <input
+                  {...register("title", { required: "field is required" })}
+                  type="text"
+                  className="form-control form-style  my-2"
+                  placeholder="Title"
+                  defaultValue={update?.data.title}
+                  aria-label="Title"
+                  aria-describedby="basic-addon1"
+                />
+                {errors.title && (
+                  <span className="bg-danger">{errors.title.message}</span>
+                )}
+              </div>
 
-            </div>
-
-             <div>
+              <div>
                 <h5 className="text-muted mb-2 mt-3">Description</h5>
-                  <input {...register('description',{required:"field is required"})} type="text"  class="form-control my-2" 
-                   placeholder="Description"
-                   defaultValue={update?.data.description}
-                   
-                   aria-label="name" aria-describedby="basic-addon1"/>
-                   {errors.description&&<span className="bg-danger">{errors.description.message}</span>}
-
-            </div>
-            <hr className="mt-5"/>
-            <div className="btns d-flex justify-content-between">
-                <button className="outline-black p-2 mt-3 border-0 rounded-5" >Cancel</button>
-                <button className=" p-2 mt-3 border-0 rounded-5 text-white"  style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Save</button>
-            </div>
+                <input
+                  {...register("description", {
+                    required: "field is required",
+                  })}
+                  type="text"
+                  className="form-control form-style my-2"
+                  placeholder="Description"
+                  defaultValue={update?.data.description}
+                  aria-label="name"
+                  aria-describedby="basic-addon1"
+                />
+                {errors.description && (
+                  <span className="bg-danger">
+                    {errors.description.message}
+                  </span>
+                )}
+              </div>
+              <hr className="mt-5" />
+              <div className="btns d-flex justify-content-between">
+                <button className="outline-black p-2 mt-3 border-0 rounded-5">
+                  Cancel
+                </button>
+                <button
+                  className=" p-2 mt-3 border-0 rounded-5 text-white"
+                  style={{ backgroundColor: "rgba(239, 155, 40, 1)" }}
+                >
+                  Save
+                </button>
+              </div>
             </form>
+          </div>
         </div>
-       </div>
-        </>
-
-    )
+      </>
+    );
 }
 export default PorjectData;

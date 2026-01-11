@@ -1,5 +1,5 @@
 import React from "react";
-import nodata from "../../../assets/images/nodata.png";
+import nodata from "../../../assets/images/nodata.jpg";
 
 
 const Deleteconfirm=()=>{

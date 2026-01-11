@@ -46,6 +46,8 @@ export default function Users() {
       });
 
       setUserList(response.data.data || []);
+   
+      
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Something went wrong!");

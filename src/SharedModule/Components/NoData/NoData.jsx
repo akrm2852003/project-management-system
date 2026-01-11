@@ -1,8 +1,8 @@
 import React from 'react'
-import noDataImage from '../../../Assets/Images/no-data.png';
+import noDataImage from '../../../assets/images/nodata.jpg';
 export default function NoData() {
   return (
-    <div>
+    <div className='text-center'>
      <img src={noDataImage} alt="" />   
     </div>
   )

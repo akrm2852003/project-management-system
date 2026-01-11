@@ -13,17 +13,18 @@ import { ToastContainer } from "react-toastify";
 import MasterLayout from "./SharedModule/Components/MasterLayout/MasterLayout.jsx";
 import NotFound from "./SharedModule/Components/NotFound/NotFound.jsx";
 
-import Dashboard from "./DashboardModule/Components/Dashboard/Dashboard.jsx";
+import Dashboard from "./DashboardModule/Componnts/Dashboard.jsx";
 
-import Projects from "./ProjectsModule/Components/Projects/Projects.jsx";
-import ProjectsData from "./ProjectsModule/Components/ProjectsData/ProjectsData.jsx";
+import Projects from "./managermodule/components/projects/projects.jsx";
+import ProjectsData from "./managermodule/components/projectdata/projectdata.jsx";
 
-import Tasks from "./TasksModule/Components/Tasks/Tasks.jsx";
-import TasksData from "./TasksModule/Components/TasksData/TasksData.jsx";
+import Tasks from "./managermodule/components/tasks/tasks.jsx";
+import TasksData from "./managermodule/components/taskdata/taskdata.jsx";
 
 import UserList from "./UserModule/Component/UserList/UserList.jsx";
 
 import AuthProvider from "./AuthContext/AuthContext.jsx";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 
 function App() {
   const routes = createBrowserRouter([
@@ -44,7 +45,11 @@ function App() {
     },
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Dashboard /> },
