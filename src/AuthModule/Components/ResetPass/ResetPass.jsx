@@ -6,6 +6,31 @@ import Form from 'react-bootstrap/Form';
 
 
 function Resetpass(){
+  let {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const password = watch("password");
+  let { navigate } = useNavigate();
+  async function onSubmit(data) {
+    console.log(data);
+
+    try {
+      let response = await axios.post(
+        "https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request",
+        data
+      );
+
+      toast.success("Password changed successfully.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
     return(
         <>
         <div className="auth-container">

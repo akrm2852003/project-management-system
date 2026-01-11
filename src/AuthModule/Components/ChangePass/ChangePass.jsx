@@ -5,6 +5,33 @@ import Form from 'react-bootstrap/Form';
 
 
 function Changepass(){
+  let {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const newPassword = watch("newPassword");
+  let navigate = useNavigate();
+
+  async function onSubmit(data) {
+    console.log(data);
+
+    try {
+      let response = await axios.put(
+        "https://upskilling-egypt.com:3003/api/v1/Users/ChangePassword",
+        data
+      );
+      console.log(response);
+
+      toast.success("Password changed successfully.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
     return(
         <>
         <div className="auth-container">
