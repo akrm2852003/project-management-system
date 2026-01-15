@@ -58,7 +58,7 @@ export default function Login() {
                   <Form
                     onSubmit={handleSubmit(onSubmit)}
                     className="login-form p-5 rounded-3 justify-content-center align-items-center"
-                    Sub
+                    
                   >
                     <div className="title">
                       <span style={{ color: "white" }}>Welcome to PMS</span>
@@ -83,7 +83,7 @@ export default function Login() {
                         E-mail
                       </Form.Label>
                       <Form.Control
-                        {...register("email", {
+                        {...register('email', {
                           required: "Email is required",
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -112,7 +112,7 @@ export default function Login() {
                       </Form.Label>
 
                       <Form.Control
-                        {...register("password", {
+                        {...register('password', {
                           required: "Password is required",
                         })}
                         className="text-white rounded-0 form-control pb-2 white-placeholder"

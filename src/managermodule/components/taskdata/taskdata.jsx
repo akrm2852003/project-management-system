@@ -9,6 +9,10 @@ import { toast } from "react-toastify";
 
 function TaskData() {
   const [tasksList, setTasksList] = useState([]);
+  const [projectsList, setProjectsList] = useState([]);
+  const [userList, setUserList] = useState([]);
+
+  
   const navigate = useNavigate();
   let {
     register,
@@ -31,7 +35,7 @@ function TaskData() {
           }
         );
         console.log(response.data);
-        toast.success("Project updated successfully", {
+        toast.success("task updated successfully", {
           position: "top-center",
           autoClose: 3000,
           theme: "colored",
@@ -95,13 +99,50 @@ function TaskData() {
     }
   };
 
+    const getAllProjects = async () => {
+      try {
+        let response = await axios.get(
+          "https://upskilling-egypt.com:3003/api/v1/Project/?pageSize=5&pageNumber=1",
+          {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          }
+        );
+        console.log(response.data.data);
+        setProjectsList(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+
+    const getAllUsers = async () => {
+      try {
+        let response = await axios.get(
+          "https://upskilling-egypt.com:3003/api/v1/Users/Manager?pageSize=10&pageNumber=1",
+          {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          }
+        );
+        console.log(response.data.data);
+        setUserList(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+      
+
+
+
   useEffect(() => {
     getAllTasks();
     if (id) updateTask();
+    getAllProjects();
+    getAllUsers();
+
   }, []);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-1 p-4 pt-3 pb-2 bg-white">
+      <div className="project-details d-flex justify-content-between mt-1 p-4 pt-3 pb-2 ">
         <div className="pro-title">
           <p>
             <i
@@ -111,13 +152,13 @@ function TaskData() {
               }}
               aria-hidden="true"
             ></i>
-            View All Projects
+            View All Tasks
           </p>
-          <h2>Add New Project</h2>
+          <h2>Add New Task</h2>
         </div>
       </div>
       <div className="w-100 ">
-        <div className="add-proj w-75 bg-white rounded-4 mt-4">
+        <div className="add-proj w-75  rounded-4 mt-4">
           <form className="p-5 text-black" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <h5 className="">Title</h5>
@@ -140,7 +181,7 @@ function TaskData() {
               <input
                 {...register("description", { required: "field is required" })}
                 type="text"
-                class="form-control form-style my-2"
+                class="form-control form-style my-2 p-2"
                 placeholder="Description"
                 defaultValue={update?.data.description}
                 aria-label="name"
@@ -153,30 +194,33 @@ function TaskData() {
             <div className="d-flex justify-content-between">
               <div>
                 <h5 className="text-muted">Emplyee Id</h5>
-                <input
+                  <select class="form-select w-100 mt-2" id="inputGroupSelect01" 
                   {...register("employeeId", { required: "field is required" })}
-                  type="number"
-                  class="form-control form-style my-2"
-                  placeholder="Id"
-                  defaultValue={update?.data.employeeId}
-                  aria-label="Id"
-                  aria-describedby="basic-addon1"
-                />
+                  >
+                      <option selected>ID</option>
+                     
+                      {userList.map((user)=>(
+                        <option Key={user.id} value={user.id}>{user.id}</option>
+                      ))}
+                
+                   </select>
+               
                 {errors.employeeId && (
                   <span className="bg-danger">{errors.employeeId.message}</span>
                 )}
               </div>
               <div>
                 <h5 className="text-muted">Project Id</h5>
-                <input
+                   <select class="form-select w-100 mt-2 " id="inputGroupSelect01" 
                   {...register("projectId", { required: "field is required" })}
-                  type="number"
-                  class="form-control form-style my-2  border border-1 text-danger"
-                  placeholder="id"
-                  defaultValue={update?.data.projectId}
-                  aria-label="id"
-                  aria-describedby="basic-addon1"
-                />
+                  >
+                      <option selected>ID</option>
+                      {projectsList.map((proj)=>(
+                        <option Key={proj.id}  value={proj.id}>{proj.id}</option>
+                      ))}
+               
+                   </select>
+             
                 {errors.projectId && (
                   <span className="bg-danger">{errors.projectId.message}</span>
                 )}

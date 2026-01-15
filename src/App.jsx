@@ -25,6 +25,8 @@ import UserList from "./UserModule/Component/UserList/UserList.jsx";
 
 import AuthProvider from "./AuthContext/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
+import { ThemeProvider } from "./SharedModule/Components/ThemeContext/ThemeContext.jsx";
+// import { ThemeProvider } from './ThemeContext';
 
 function App() {
   const routes = createBrowserRouter([
@@ -55,22 +57,27 @@ function App() {
         { index: true, element: <Dashboard /> },
 
         { path: "projects", element: <Projects /> },
-        { path: "projects-data", element: <ProjectsData /> },
+        { path: "projectdata", element: <ProjectsData /> },
+        { path: "projectdata/:id", element: <ProjectsData /> },
 
         { path: "tasks", element: <Tasks /> },
-        { path: "tasks-data", element: <TasksData /> },
+        { path: "taskdata", element: <TasksData /> },
+        { path: "taskdata/:id", element: <TasksData /> },
 
         { path: "user-list", element: <UserList /> },
       ],
     },
   ]);
 
+  
   return (
     <>
+     <ThemeProvider>
       <AuthProvider>
         <RouterProvider router={routes}></RouterProvider>
         <ToastContainer position="top-center" />
       </AuthProvider>
+       </ThemeProvider>
     </>
   );
 }

@@ -53,12 +53,12 @@ function Register() {
             <div className="row justify-content-center align-items-center  ">
               <div className="form-container col-lg-8 col-xl-7   col-md-10 col-sm-12  ">
                 <div className=" logo d-flex justify-content-center align-items-center mb-3">
-                  <img src={logo} className="w-50" alt="this is logo image" />
+                  <img src={logo} className="w-25" alt="this is logo image" />
                 </div>
                 <Form
 
                   onSubmit={handleSubmit(onSubmit)}
-                  className=" my-bg p login-form p-5 rounded-3 justify-content-center align-items-center"
+                  className="login-form p-5 rounded-3 justify-content-center align-items-center"
                 >
                   <div className="title">
                     <span style={{ color: "white" }}>Welcome to PMS</span>
@@ -257,7 +257,7 @@ function Register() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-50 d-block mx-auto border-0 rounded-5 p-2 mt-4  text-center"
+                    className="w-50 d-block mx-auto border-0 rounded-5 p-2 mt-2  text-center"
                     style={{ backgroundColor: "rgba(239, 155, 40, 1)" }}
                   >
                     Save
