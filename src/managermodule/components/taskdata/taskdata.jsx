@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Table from "react-bootstrap/Table";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function TaskData() {
@@ -14,18 +11,20 @@ function TaskData() {
 
   
   const navigate = useNavigate();
-  let {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
   const { id } = useParams();
-  console.log(id);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // Submit function
   const onSubmit = async (data) => {
     if (id) {
+      // Update Task
       try {
-        let response = await axios.put(
+        const response = await axios.put(
           `https://upskilling-egypt.com:3003/api/v1/Task/${id}`,
           data,
           {
@@ -42,11 +41,16 @@ function TaskData() {
         });
         navigate("/dashboard/tasks");
       } catch (error) {
-        console.log("ooops");
+        console.log(error);
+        toast.error("Failed to update task", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       }
     } else {
+      // Add Task
       try {
-        let response = await axios.post(
+        const response = await axios.post(
           "https://upskilling-egypt.com:3003/api/v1/Task",
           data,
           {
@@ -55,7 +59,6 @@ function TaskData() {
             },
           }
         );
-        console.log(response.data);
         toast.success("Task added successfully", {
           position: "top-center",
           autoClose: 3000,
@@ -63,39 +66,78 @@ function TaskData() {
         });
         navigate("/dashboard/tasks");
       } catch (error) {
-        console.log("opoos");
+        console.log(error);
+        toast.error("Failed to add task", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       }
     }
   };
 
+  // Get all tasks
   const getAllTasks = async () => {
     try {
-      let response = await axios.get(
+      const response = await axios.get(
         "https://upskilling-egypt.com:3003/api/v1/Task/manager?pageSize=10&pageNumber=1",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      console.log(response.data.data);
       setTasksList(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-  const [update, setUpdate] = useState(null);
 
+  // Get single task for update
   const updateTask = async () => {
     try {
-      let response = await axios.get(
+      const response = await axios.get(
         `https://upskilling-egypt.com:3003/api/v1/Task/${id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      console.log(response);
-      setUpdate(response);
+      setUpdate(response.data); // Note: response.data contains task info
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // Get all users
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get(
+        "https://upskilling-egypt.com:3003/api/v1/Users/Manager?pageSize=10&pageNumber=1",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setUsers(response.data.data);
+      setLoadingUsers(false);
+    } catch (error) {
+      console.log(error);
+      setLoadingUsers(false);
+    }
+  };
+
+  // Get all projects
+  const getAllProjects = async () => {
+    try {
+      const response = await axios.get(
+        "https://upskilling-egypt.com:3003/api/v1/Project/manager?pageSize=10&pageNumber=1",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setProjects(response.data.data);
+      setLoadingProjects(false);
+      console.log(response );
+      
+    } catch (error) {
+      console.log(error);
+      setLoadingProjects(false);
     }
   };
 
@@ -135,6 +177,8 @@ function TaskData() {
 
   useEffect(() => {
     getAllTasks();
+    getAllUsers();
+    getAllProjects();
     if (id) updateTask();
     getAllProjects();
     getAllUsers();
@@ -146,11 +190,8 @@ function TaskData() {
         <div className="pro-title">
           <p>
             <i
-              class="fa fa-arrow-left text-muted mx-1 mb-2"
-              onClick={() => {
-                navigate("/dashboard/tasks");
-              }}
-              aria-hidden="true"
+              className="fa fa-arrow-left text-muted mx-1 mb-2"
+              onClick={() => navigate("/dashboard/tasks")}
             ></i>
             View All Tasks
           </p>
@@ -161,21 +202,32 @@ function TaskData() {
         <div className="add-proj w-75  rounded-4 mt-4">
           <form className="p-5 text-black" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <h5 className="">Title</h5>
-              <input
-                {...register("title", { required: "field is required" })}
-                type="text"
-                class="form-control form-style my-2"
-                placeholder="Title"
-                defaultValue={update?.data.title}
-                aria-label="Title"
-                aria-describedby="basic-addon1"
-              />
-              {errors.title && (
-                <span className="bg-danger">{errors.title.message}</span>
+              <h5 className="text-muted">Employee</h5>
+              {loadingProjects ? (
+                <p>Loading projects...</p>
+              ) : (
+                <select
+                  {...register("employeeId", { required: "field is required" })}
+                  className="form-control form-style my-2"
+                  value={update?.employeeId || ""}
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Select employee
+                  </option>
+                  {projects.map((project) => (
+                    <option key={project.id} value={project.id}>
+                      {project.title}
+                    </option>
+                  ))}
+                </select>
+              )}
+              {errors.employeeId && (
+                <span className="bg-danger">{errors.employeeId.message}</span>
               )}
             </div>
 
+            {/* Project Dropdown */}
             <div>
               <h5 className="text-muted mb-2 mt-3">Description</h5>
               <input
@@ -238,10 +290,31 @@ function TaskData() {
                 Save
               </button>
             </div>
-          </form>
-        </div>
+          </div>
+
+          <hr className="mt-5" />
+
+          {/* Buttons */}
+          <div className="btns d-flex justify-content-between">
+            <button
+              type="button"
+              className="outline-black p-2 mt-3 border-0 rounded-5"
+              onClick={() => navigate("/dashboard/tasks")}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="p-2 mt-3 border-0 rounded-5 text-white"
+              style={{ backgroundColor: "rgba(239, 155, 40, 1)" }}
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
+
 export default TaskData;

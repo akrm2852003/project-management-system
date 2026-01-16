@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) {
     try {
       const res = await axiosInstance.get(USERS_URL.GET_CURRENT_USER);
       setFullUserData(res.data);
-      console.log(res.data);
+    
       
     } catch (err) {
       console.error("Failed to fetch user data", err);

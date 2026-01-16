@@ -2,9 +2,40 @@ import React from "react";
 import logo from '../../../assets/images/logo2.svg'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 
 function Changepass(){
+  let {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const newPassword = watch("newPassword");
+  let navigate = useNavigate();
+
+  async function onSubmit(data) {
+    console.log(data);
+
+    try {
+      let response = await axios.put(
+        "https://upskilling-egypt.com:3003/api/v1/Users/ChangePassword",
+        data
+      );
+      console.log(response);
+
+      toast.success("Password changed successfully.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
     return(
         <>
         <div className="auth-container">
@@ -18,7 +49,7 @@ function Changepass(){
                                             <div className="logo d-flex justify-content-center align-items-center mb-1">
                                                   <img src={logo} className="w-50"  alt="this is logo image" />
                                             </div>
-                                             <Form className="login-form p-5  rounded-3 " >
+                                             <Form onSubmit={handleSubmit(onSubmit)} className="login-form p-5  rounded-3 " >
                                         <div className="title">
                                             <span  style={{color:"white"}}>Welcome to PMS</span>
                                             <h2  style={{color:"rgba(239, 155, 40, 1)"}}>Change your Account</h2>

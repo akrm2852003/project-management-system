@@ -21,14 +21,13 @@ function Register() {
 
   const onSubmit = async (data) => {
     try {
-      // const response =await axiosInstance.post(USERS_URL.REGISTER,data)
-      let response = await axios.post('https://upskilling-egypt.com:3003/api/v1/Users/Register',data
-        ,{
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-      console.log('Register successful:', response.data);
-      // navigate('/verify-account');
-      // console.log(response);
+      const response = await axios.post(
+        "https://upskilling-egypt.com:3003/api/v1/Users/Register",
+        data
+      );
+      // console.log('Register successful:', response.data);
+      navigate('/verify-account');
+      console.log(response);
       
       toast.success("Register successful");
       navigate("/verify-account");
@@ -39,7 +38,7 @@ function Register() {
         autoClose: 5000,
         theme: "dark",
       });
-      // navigate("/verify-account");
+     
     }
   };
   return (

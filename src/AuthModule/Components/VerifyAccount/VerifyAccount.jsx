@@ -14,7 +14,7 @@ function VerifyAccount(){
         try {
             const response = await axios.post( 'https://upskilling-egypt.com:3003/api/v1/Users/verify', data);
             console.log('Login successful:', response.data);
-            // navigate('/login');
+            navigate('/login');
              toast.success("successful");
          
         } catch (error) {
@@ -24,7 +24,7 @@ function VerifyAccount(){
             theme: "dark"
             }
          );
-           navigate('/login');
+        
            
         }
     }
@@ -66,7 +66,7 @@ function VerifyAccount(){
                                           <Form.Group className="custom-input mb-2 " controlId="formBasicOtp">
                                            <Form.Label className="m-0 mt-1 " style={{color:"rgba(239, 155, 40, 1)"}}>OTP Verification</Form.Label>
                                            <Form.Control
-                                              {...register("otp",
+                                              {...register("code",
                                             { required: "otp is required",    
                                                
                                             })}
