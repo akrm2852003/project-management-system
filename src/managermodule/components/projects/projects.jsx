@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Deleteconfirm from "../../../SharedModule/Components/deleteconfirmation/deleteconfirm";
 import NoData from "../../../SharedModule/Components/NoData/NoData";
-import { AuthContext } from "../../../AuthContext/AuthContext";
+
+import { AuthContext } from './../../../AuthContext/AuthContext';
 
 function Porjects() {
   const [projectsList, setProjectsList] = useState([]);
@@ -98,9 +99,9 @@ function Porjects() {
         </div> :''}
       </div>
 
-      <Modal show={show} className="model-style ms-5"  onHide={handleClose}>
-        <Modal.Header closeButton>
-       
+      <Modal show={show} className="  d-flex justify-content-center align-items-center" onHide={handleClose}>
+        <Modal.Header className="p-2" closeButton>
+      
         </Modal.Header>
         <Modal.Body>
           <Deleteconfirm />

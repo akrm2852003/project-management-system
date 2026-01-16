@@ -1,14 +1,23 @@
 
 import React, { useContext, useState } from 'react'
 import { Sidebar, Menu, MenuItem} from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../../AuthContext/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext, useAuth } from '../../../AuthContext/AuthContext';
+
+
 export default function SideBar() {
+    const navigate =useNavigate();
+
   const [isCollapsed, setIsCollapsed ] = useState(false);
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed)
   }
-  let {loginData} =useContext(AuthContext);
+  // const { loginData, fullUserData, logOutUser } = useAuth();
+  let {loginData,logOutUser} =useContext(AuthContext);
+  const Logout =()=>{
+    logOutUser();
+    navigate("/login",{replace:true});
+  }
 
   return (
     <>
@@ -28,7 +37,7 @@ export default function SideBar() {
     {loginData?.userGroup != "Employee"? <MenuItem component={<Link to="/dashboard/user-list" />} icon={<i className="fa-solid fa-users "></i>}> Users </MenuItem> :''}
     <MenuItem component={<Link to="/dashboard/projects" />} icon={<i className="fa-solid fa-project-diagram"></i>}> Projects </MenuItem>
     <MenuItem component={<Link to="/dashboard/tasks" />} icon={<i className="fa-solid fa-tasks"></i>}> Tasks </MenuItem>
-    <MenuItem component={<Link to="/login" />} icon={<i className="fa-solid fa-sign-out"></i>}> Log out </MenuItem>
+    <MenuItem onClick={Logout} icon={<i className="fa-solid fa-sign-out"></i>}> Log out </MenuItem>
   </Menu>
 </Sidebar>
 

@@ -26,6 +26,8 @@ import UserList from "./UserModule/Component/UserList/UserList.jsx";
 import AuthProvider from "./AuthContext/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 import { ThemeProvider } from "./SharedModule/Components/ThemeContext/ThemeContext.jsx";
+
+// import ProtectedRoute from "./protect/protectedroutes/protectedroutes.jsx";
 // import { ThemeProvider } from './ThemeContext';
 
 function App() {

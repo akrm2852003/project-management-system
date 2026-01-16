@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Deleteconfirm from "../../../SharedModule/Components/deleteconfirmation/deleteconfirm";
 import NoData from "../../../SharedModule/Components/NoData/NoData";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../AuthContext/AuthContext";
+import { AuthContext } from './../../../AuthContext/AuthContext';
 
 function Tasks() {
   const [tasksList, setTasksList] = useState([]);

@@ -1,11 +1,41 @@
 import React from "react";
 import logo from '../../../assets/images/logo2.svg'
 import Button from 'react-bootstrap/Button';
+
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import {  toast } from 'react-toastify';
+// import { axios } from 'axios';
+
 
 
 
 function Forgetpass(){
+
+    // let {register,formState:{errors},handleSubmit}= useForm()
+    // let navigate = useNavigate()
+    
+    // const onSubmit=async(data)=>{
+    //     try {
+    //         let response=await axios.post('https://upskilling-egypt.com:3003/api/v1/Users/Reset/Request',data);
+    //         console.log(response)
+    //          toast.success('enter new password',{
+    //             position:"top-center",
+    //             autoClose:3000,
+    //             theme:"colored"
+    //         })
+    //         navigate('/resetpass')
+
+    //     } catch (error) {
+    //         console.log(error)
+    //         toast.error(error.response.data.message ,{
+    //             position:"top-center",
+    //             autoClose:3000,
+    //             theme:"colored"
+    //         });
+    //     }
+    // }
     return(
         <>
          <div className="auth-container">
@@ -21,7 +51,8 @@ function Forgetpass(){
                                         <img src={logo} className="w-50"  alt="this is logo image" />
                                     </div>
 
-                                    <Form className="login-form p-5 rounded-3 justify-content-center align-items-center" >
+                                    <Form onSubmit={handleSubmit(onSubmit)}
+                                     className="login-form p-5 rounded-3 justify-content-center align-items-center" >
                                         <div className="title">
                                             <span  style={{color:"white"}}>Welcome to PMS</span>
                                             <h2  style={{color:"rgba(239, 155, 40, 1)"}}>Forget Password</h2>
@@ -30,7 +61,15 @@ function Forgetpass(){
                             
                                          <Form.Group className="custom-input mb-3  " controlId="formBasicEmail">
                                            <Form.Label className="m-0 mt-1" style={{color:"rgba(239, 155, 40, 1)"}}>Email </Form.Label>
-                                           <Form.Control  className="text-white rounded-0 form-control" type="email" placeholder="Enter email" style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}}/>
+                                           <Form.Control {...register('email',
+                                                        {
+                                                            required:"email is required",
+                                                            pattern:{
+                                                                value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                                message: "email should be invalid"
+                                                            }
+                                                        })}
+                                            className="text-white rounded-0 form-control" type="email" placeholder="Enter email" style={{backgroundColor:"rgba(49, 89, 81, 0.9)"}}/>
                                          </Form.Group>
 
                                         

@@ -8,14 +8,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import circleImg from "../../../assets/images/avatar.png";
+import { axiosInstance } from "../../../service/urls";
+import { USERS_URL } from './../../../service/api';
 
 function Register() {
-  let {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm({ mode: "onChange" });
+   let {register,formState:{errors},watch,handleSubmit}= useForm();
+
   const password = watch("password");
   let navigate = useNavigate();
   let [showPassword, setShowPassword] = useState(false);
@@ -23,22 +21,25 @@ function Register() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        "https://upskilling-egypt.com:3003/api/v1/Users/Register",
-        data
-      );
-      // console.log('Register successful:', response.data);
+      // const response =await axiosInstance.post(USERS_URL.REGISTER,data)
+      let response = await axios.post('https://upskilling-egypt.com:3003/api/v1/Users/Register',data
+        ,{
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+      console.log('Register successful:', response.data);
       // navigate('/verify-account');
-      console.log(response);
+      // console.log(response);
       
       toast.success("Register successful");
+      navigate("/verify-account");
+
     } catch (error) {
       toast.error(error.response.data.message, {
        
         autoClose: 5000,
         theme: "dark",
       });
-      navigate("/verify-account");
+      // navigate("/verify-account");
     }
   };
   return (
@@ -55,11 +56,9 @@ function Register() {
                 <div className=" logo d-flex justify-content-center align-items-center mb-3">
                   <img src={logo} className="w-25" alt="this is logo image" />
                 </div>
-                <Form
+                <Form  onSubmit={handleSubmit(onSubmit)}
+                  className="login-form p-5 rounded-3 justify-content-center align-items-center">
 
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="login-form p-5 rounded-3 justify-content-center align-items-center"
-                >
                   <div className="title">
                     <span style={{ color: "white" }}>Welcome to PMS</span>
                     <h4 style={{ color: "rgba(239, 155, 40, 1)" }}>
@@ -79,10 +78,10 @@ function Register() {
                         className="m-0 mt-1"
                         style={{ color: "rgba(239, 155, 40, 1)" }}
                       >
-                        Name{" "}
+                        Name
                       </Form.Label>
                       <Form.Control
-                        {...register("userName", {
+                        {...register('userName', {
                           required: "Name is required",
                         })}
                         className="text-white rounded-0 form-control"
@@ -90,9 +89,9 @@ function Register() {
                         placeholder="Enter your Name"
                         style={{ backgroundColor: "transparent" }}
                       />
-                      {errors.name && (
+                      {errors.userName && (
                         <div className=" alert alert-danger">
-                          <p>{errors.name.message}</p>
+                          <p>{errors.userName.message}</p>
                         </div>
                       )}
                     </Form.Group>
@@ -104,10 +103,10 @@ function Register() {
                         className="m-0 mt-1"
                         style={{ color: "rgba(239, 155, 40, 1)" }}
                       >
-                        Email{" "}
+                        Email
                       </Form.Label>
                       <Form.Control
-                        {...register("email", {
+                        {...register('email', {
                           required: "Email is required",
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -126,10 +125,7 @@ function Register() {
                     </Form.Group>
                   </div>
                   <div className=" d-flex">
-                    <Form.Group
-                      className="custom-input mb-4  w-100 "
-                      controlId="formBasicCountry"
-                    >
+                    <Form.Group className="custom-input mb-4  w-100 "controlId="formBasicCountry">
                       <Form.Label
                         className="m-0 mt-1"
                         style={{ color: "rgba(239, 155, 40, 1)" }}
@@ -137,7 +133,7 @@ function Register() {
                         Country{" "}
                       </Form.Label>
                       <Form.Control
-                        {...register("country", {
+                        {...register('country', {
                           required: "country is required",
                         })}
                         className="text-white rounded-0 form-control"
@@ -162,7 +158,7 @@ function Register() {
                         Phone
                       </Form.Label>
                       <Form.Control
-                        {...register("phoneNumber", {
+                        {...register('phoneNumber', {
                           required: "Phone is required",
                         })}
                         type="tel"
@@ -171,9 +167,9 @@ function Register() {
                         style={{ backgroundColor: "transparent" }}
                       />
 
-                      {errors.phone && (
+                      {errors.phoneNumber && (
                         <div className="alert alert-danger">
-                          {errors.phone.message}
+                          {errors.phoneNumber.message}
                         </div>
                       )}
                     </Form.Group>
@@ -184,10 +180,10 @@ function Register() {
                         Password
                       </Form.Label>
                       <Form.Control
-                        {...register("password", {
+                        {...register('password', {
                           required: "Password is required",
                         })}
-                        type={showPassword ? "text" : "password"}
+                        // type={showPassword ? "text" : "password"}
                         placeholder="enter your password"
                         className="text-white rounded-0 form-control"
                         style={{ backgroundColor: "transparent" }}
@@ -220,7 +216,7 @@ function Register() {
                         Confirm Password
                       </Form.Label>
                       <Form.Control
-                        {...register("confirmPassword", {
+                        {...register('confirmPassword', {
                           required: "Confirm password is required",
                           validate: (value) =>
                             value === password || "Passwords do not match",

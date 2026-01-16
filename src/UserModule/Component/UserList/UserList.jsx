@@ -184,7 +184,7 @@ export default function Users() {
                                             className="dropdown-item  text-success"
                                              onClick={() => handleShowView(user.id)}
                                           >
-                                            <li class="fa-solid fa-trash mx-2"></li>Delete
+                                            <li class="fa-solid fa-trash mx-2"></li>View
                                           </li>
                                         </ul>
                                       </div>
@@ -199,11 +199,11 @@ export default function Users() {
               <NoData />)}
 
       {/* ===== modal ===== */}
-      <Modal show={showView} onHide={handleCloseView} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>User Details</Modal.Title>
+      <Modal show={showView} onHide={handleCloseView} className="  d-flex justify-content-center align-items-center">
+        <Modal.Header className="p-1 mx-3" closeButton>
+          <Modal.Title className="px-5 p-1 text-start">User Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center">
+        <Modal.Body className="text-center p-5">
           {viewList && (
             <>
               {/* <img

@@ -178,8 +178,6 @@ function Dashboard() {
             </div>
           </div>
           <div className="card border-0 charts-container  w-50 rounded-4 py-4 pe-3">
-            {/* {loginData?.userGroup === "Employee"?
-            <Doughnut data={data} /> :''} */}
            
             {loginData?.userGroup != "Employee"?
             <div>

@@ -73,7 +73,7 @@ export default function Login() {
 
                     <Form.Group
                       className="custom-input mb-3  w-100"
-                      controlId="formBasicEmail"
+                      // controlId="formBasicEmail"
                     >
                       <Form.Label
                         className=" m-1 "
@@ -102,7 +102,7 @@ export default function Login() {
 
                     <Form.Group
                       className="custom-input mb-2 w-100 position-relative"
-                      controlId="formBasicPassword"
+                      // controlId="formBasicPassword"
                     >
                       <Form.Label
                         className="m-0"
