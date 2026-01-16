@@ -5,11 +5,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Deleteconfirm from "../../../SharedModule/Components/deleteconfirmation/deleteconfirm";
 import NoData from "../../../SharedModule/Components/NoData/NoData";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from './../../../AuthContext/AuthContext';
 
 function Tasks() {
   const [tasksList, setTasksList] = useState([]);
   const navigate = useNavigate();
+    let {loginData} =useContext(AuthContext);
+  
 
   const [show, setShow] = useState(false);
   const [taskId, settaskId] = useState(0);
@@ -56,24 +59,25 @@ function Tasks() {
   }, []);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-1 p-4 bg-white">
+      <div className="project-details d-flex justify-content-between mt-1 p-4 ">
         <div className="pro-title">
-          <h2>Tasks</h2>
+          {loginData?.userGroup != "Employee"?<h2>Tasks</h2>:<h2>Tasks Board</h2>}
         </div>
+        {loginData?.userGroup != "Employee"?
         <div className="pro-btn">
           <button
             className="rounded-5 border-0 p-2 text-white"
             onClick={() => {
-              navigate("/dashboard/tasks-data");
+              navigate('/dashboard/taskdata');
             }}
             style={{ backgroundColor: "rgba(239, 155, 40, 1)" }}
           >
             <i class="fa fa-plus" aria-hidden="true"></i> Add New Task
           </button>
-        </div>
+        </div>:''}
       </div>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} className="model-style ms-5" onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title></Modal.Title>
         </Modal.Header>
@@ -81,15 +85,16 @@ function Tasks() {
           <Deleteconfirm />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="outline-danger" onClick={deleteTask}>
-            {" "}
+          <Button variant="outline-danger" className="p-1 m-2" onClick={deleteTask}>
+      
             Delete this item
           </Button>
         </Modal.Footer>
       </Modal>
-
+       {loginData?.userGroup != "Employee"?
+     <div>
       {tasksList.length > 0 ? (
-        <div className="pro-container m-3 border-1 border  overflow-hidden m-4 rounded-4 shadow-lg ">
+        <div className="pro-container m-3 border-1 border  overflow-hidden m-4 shadow-lg ">
           <div className="bg-white p-3 ">
             <input
               className="search  search-style"
@@ -120,7 +125,7 @@ function Tasks() {
                   Date Created{" "}
                   <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
-                <th>actions</th>
+                 <th>actions</th> 
               </tr>
             </thead>
             <tbody>
@@ -128,15 +133,15 @@ function Tasks() {
                 <tr className="table-body">
                   <td>{task.title}</td>
                   <td>
-                    <div className="td-style text-center text-white p-1">
-                      Public
+                    <div className="td-style text-center text-white bg-success p-1">
+                      Done
                     </div>
                   </td>
                   <td>2</td>
                   <td>8</td>
                   <td>{task.creationDate}</td>
 
-                  <td>
+               <td>
                     <div className="dropdown">
                       <span
                         data-bs-toggle="dropdown"
@@ -164,7 +169,7 @@ function Tasks() {
                         </li>
                       </ul>
                     </div>
-                  </td>
+                  </td> 
                 </tr>
               ))}
             </tbody>
@@ -172,7 +177,37 @@ function Tasks() {
         </div>
       ) : (
         <NoData />
-      )}
+      )}</div> :
+      <div className="d-flex justify-content-center align-item-center w-100">
+        <div className="">
+          <h2 className="text-center mt-4 mb-3">ToDo</h2>
+          <div className="p-4 pt-4 pb-5 rounded-3 vh-75" style={{backgroundColor:"rgba(14, 56, 47, 1)",height:"300px",width:"340px"}}>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>login Ui</div>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Login Inegration</div>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Register Ui</div>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Register Integration</div>
+          </div>
+        </div>
+
+        <div className=" mx-3 ms-3">
+          <h2 className="text-center mt-4 mb-3">In Progress</h2>
+          <div className="p-4 rounded-3 " style={{backgroundColor:"rgba(14, 56, 47, 1)",height:"300px",width:"340px"}}>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>login Ui</div>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Register Ui</div>
+
+          </div>
+        </div>
+
+        <div className="">
+          <h2 className="text-center mt-4 mb-3">Done</h2>
+          <div className="p-4 rounded-3" style={{backgroundColor:"rgba(14, 56, 47, 1)",height:"300px",width:"340px"}}>
+            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>login Ui</div>
+           
+          </div>
+        </div>
+        
+      </div>
+      }
     </>
   );
 }

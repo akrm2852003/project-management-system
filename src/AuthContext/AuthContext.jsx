@@ -1,11 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { jwtDecode } from "jwt-decode";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import {createContext,useContext,useEffect,useState,} from "react";
 import { USERS_URL } from "../service/api.js";
 import { axiosInstance } from "../service/urls.js";
 
@@ -56,6 +51,7 @@ export default function AuthProvider({ children }) {
     localStorage.removeItem("token");
     saveLoginData();
     setFullUserData(null);
+   
   };
 
   return (
@@ -83,3 +79,7 @@ export const useAuth = () => {
   }
   return context;
 };
+
+
+
+

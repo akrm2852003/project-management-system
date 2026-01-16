@@ -85,7 +85,7 @@ function PorjectData(){
          },[])
     return (
       <>
-        <div className="project-details d-flex justify-content-between mt-1 p-4 pt-3 pb-2 bg-white">
+        <div className="project-details d-flex justify-content-between mt-1 p-4 pt-3 pb-2 ">
           <div className="pro-title">
             <p>
               <i
@@ -102,7 +102,7 @@ function PorjectData(){
         </div>
         <div className="w-100 ">
           <div className="add-proj w-75 bg-white rounded-4 mt-4">
-            <form className="p-5 form-style" onSubmit={handleSubmit(onSubmit)}>
+            <form className="p-5 text-black" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <h5 className="text-muted">Title</h5>
                 <input

@@ -8,6 +8,7 @@ import { isAxiosError } from "axios";
 import Search from "../../../SharedModule/Components/Search/Search.jsx";
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import NoData from "../../../SharedModule/Components/NoData/NoData.jsx";
 
 
 export default function Users() {
@@ -86,10 +87,23 @@ export default function Users() {
 
   return (
     <>
-      <div className=" mt-2 bg-white rounded-4 shadow-sm">
-        <input type="search" placeholder="search"
-        className="mb-4 ps-2 rounded-2 border-1"
-        />
+    <div className="project-details d-flex justify-content-between mt-1 p-4 ">
+        <div className="pro-title">
+         <h2>Users</h2>
+        </div>
+        </div>
+        {userList.length > 0 ? (
+         <div className="pro-container m-3 border-1 border  overflow-hidden m-4 shadow-lg ">
+          <div className="bg-white p-3 ">
+            <input
+              className="search  search-style"
+              style={{ backgroundColor: "rgba(241, 241, 241, 1)" }}
+              class="form-control "
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </div>
 
         {/* ===== table ===== */}
        <Table striped>
@@ -123,16 +137,18 @@ export default function Users() {
             )}
 
             {userList.map((user) => (
-              <tr key={user.id}>
+              <tr key={user.id} className="table-body">
                 <td>{user.userName}</td>
                 <td>
+                  {/* <div className="td-style text-center text-white p-1"> */}
                   <span
-                    className= {`badge p-3  ${
+                    className= {`badge p-2 px-3 rounded-4  ${
                       user.isActivated ? "bg-success" : "bg-danger"
                     }`}
                   >
                     {user.isActivated ? "Active" : "Not Active"}
                   </span>
+                {/* </div> */}
                 </td>
                 {/* <td>
                   <img
@@ -150,31 +166,44 @@ export default function Users() {
                 <td>{user.email}</td>
                 <td>{moment(user.creationDate).format("MM-DD-YYYY")}</td>
                 <td>
-                  <button
-                    className="btn btn-sm btn-warning me-2 p-2"
-                    onClick={() => toggleActivated(user.id)}
-                  >
-                    {user.isActivated ? "Block" : "Unblock"}
-                  </button>
-                  <button
-                    className="btn btn-sm btn-primary p-2"
-                    onClick={() => handleShowView(user.id)}
-                  >
-                    View
-                  </button>
+                   <div className="dropdown">
+                                        <span
+                                          data-bs-toggle="dropdown"
+                                          style={{ cursor: "pointer", fontSize: "10px" }}
+                                        >
+                                          <i class="fa-solid fa-ellipsis"></i>
+                                        </span>
+                                        <ul className="dropdown-menu p-2">
+                                          <li className="dropdown-item  text-success "
+                                          onClick={() => toggleActivated(user.id)}>
+                                            <li class="fa fa-ban mx-2"></li>
+                                            {user.isActivated ? "Block" : "Unblock"}
+                                          </li>
+                                          
+                                          <li
+                                            className="dropdown-item  text-success"
+                                             onClick={() => handleShowView(user.id)}
+                                          >
+                                            <li class="fa-solid fa-trash mx-2"></li>View
+                                          </li>
+                                        </ul>
+                                      </div>
+               
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
+        ) : (
+              <NoData />)}
 
       {/* ===== modal ===== */}
-      <Modal show={showView} onHide={handleCloseView} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>User Details</Modal.Title>
+      <Modal show={showView} onHide={handleCloseView} className="  d-flex justify-content-center align-items-center">
+        <Modal.Header className="p-1 mx-3" closeButton>
+          <Modal.Title className="px-5 p-1 text-start">User Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center">
+        <Modal.Body className="text-center p-5">
           {viewList && (
             <>
               {/* <img

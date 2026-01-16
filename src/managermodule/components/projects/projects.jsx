@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,9 +7,13 @@ import Modal from "react-bootstrap/Modal";
 import Deleteconfirm from "../../../SharedModule/Components/deleteconfirmation/deleteconfirm";
 import NoData from "../../../SharedModule/Components/NoData/NoData";
 
+import { AuthContext } from './../../../AuthContext/AuthContext';
+
 function Porjects() {
   const [projectsList, setProjectsList] = useState([]);
   const navigate = useNavigate();
+   let {loginData} =useContext(AuthContext);
+
 
   const [show, setShow] = useState(false);
   const [projId, setprojId] = useState(0);
@@ -19,9 +23,11 @@ function Porjects() {
     setprojId(id);
     setShow(true);
   };
+  
 
   const getAllProjects = async () => {
-    try {
+
+   try {
       let response = await axios.get(
         "https://upskilling-egypt.com:3003/api/v1/Project/?pageSize=10&pageNumber=1",
         {
@@ -35,6 +41,21 @@ function Porjects() {
     }
   };
 
+  const getAllEmplyeeProjects = async () => {
+    try {
+      let response = await axios.get(
+        "https://upskilling-egypt.com:3003/api/v1/Project/employee?pageSize=10&pageNumber=1",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      console.log(response.data.data);
+      setProjectsList(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   const deleteProj = async () => {
     try {
       let response = await axios.delete(
@@ -52,37 +73,42 @@ function Porjects() {
   };
 
   useEffect(() => {
-    getAllProjects();
-  }, []);
+    if(!loginData?.userGroup)return;
+    if(loginData?.userGroup ==="Employee"){
+      getAllEmplyeeProjects();
+    }else{ getAllProjects();}
+    
+  }, [loginData]);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-1 p-4 bg-white">
+      <div className="project-details d-flex justify-content-between mt-1 p-4 ">
         <div className="pro-title">
           <h2>Projects</h2>
         </div>
+        {loginData?.userGroup != "Employee"?
         <div className="pro-btn">
           <button
             className="rounded-5 border-0 p-2 text-white"
             onClick={() => {
-              navigate("/dashboard/projects-data");
+              navigate("/dashboard/projectdata");
             }}
             style={{ backgroundColor: "rgba(239, 155, 40, 1)" }}
           >
             <i class="fa fa-plus" aria-hidden="true"></i> Add New Project
           </button>
-        </div>
+        </div> :''}
       </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
+      <Modal show={show} className="  d-flex justify-content-center align-items-center" onHide={handleClose}>
+        <Modal.Header className="p-2" closeButton>
+      
         </Modal.Header>
         <Modal.Body>
           <Deleteconfirm />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="outline-danger" onClick={deleteProj}>
-            {" "}
+          <Button variant="outline-danger" className="p-1 m-2" onClick={deleteProj}>
+         
             Delete this item
           </Button>
         </Modal.Footer>
@@ -120,7 +146,7 @@ function Porjects() {
                   Date Created{" "}
                   <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
-                <th>actions</th>
+                {loginData?.userGroup != "Employee"?<th>actions</th>:''}
               </tr>
             </thead>
             <tbody>
@@ -136,7 +162,7 @@ function Porjects() {
                   <td>8</td>
                   <td>{proj.creationDate}</td>
 
-                  <td>
+                  {loginData?.userGroup != "Employee"?<td>
                     <div className="dropdown">
                       <span
                         data-bs-toggle="dropdown"
@@ -164,7 +190,7 @@ function Porjects() {
                         </li>
                       </ul>
                     </div>
-                  </td>
+                  </td> :''}
                 </tr>
               ))}
             </tbody>
