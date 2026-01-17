@@ -81,7 +81,7 @@ function Porjects() {
   }, [loginData]);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-1 p-4 ">
+      <div className="project-details d-flex justify-content-between mt-5 p-4 m-3 ">
         <div className="pro-title">
           <h2>Projects</h2>
         </div>
@@ -115,7 +115,7 @@ function Porjects() {
       </Modal>
 
       {projectsList.length > 0 ? (
-        <div className="pro-container m-3">
+        <div className="pro-container m-3 mt-0">
           <div className="bg-white p-3">
             <input
               className="search border-0 w-25 rounded-4 p-2"

@@ -26,9 +26,11 @@ import UserList from "./UserModule/Component/UserList/UserList.jsx";
 import AuthProvider from "./AuthContext/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 import { ThemeProvider } from "./SharedModule/Components/ThemeContext/ThemeContext.jsx";
+import ChatBot from "./chatbot/chatbot.jsx";
 
 // import ProtectedRoute from "./protect/protectedroutes/protectedroutes.jsx";
 // import { ThemeProvider } from './ThemeContext';
+import ChatBotWidget from './chatbot/chatbotwidget';
 
 function App() {
   const routes = createBrowserRouter([
@@ -52,7 +54,7 @@ function App() {
       element: (
         <ProtectedRoute>
           <MasterLayout />
-        </ProtectedRoute>
+         </ProtectedRoute>
       ),
       errorElement: <NotFound />,
       children: [
@@ -78,8 +80,10 @@ function App() {
       <AuthProvider>
         <RouterProvider router={routes}></RouterProvider>
         <ToastContainer position="top-center" />
+        <div><ChatBotWidget/></div>
       </AuthProvider>
        </ThemeProvider>
+       
     </>
   );
 }

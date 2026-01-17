@@ -87,13 +87,13 @@ export default function Users() {
 
   return (
     <>
-    <div className="project-details d-flex justify-content-between mt-1 p-4 ">
+    <div className="project-details d-flex justify-content-between mt-5 p-4 m-3">
         <div className="pro-title">
          <h2>Users</h2>
         </div>
         </div>
         {userList.length > 0 ? (
-         <div className="pro-container m-3 border-1 border  overflow-hidden m-4 shadow-lg ">
+         <div className="pro-container m-3 border-1 border  overflow-hidden shadow-lg ">
           <div className="bg-white p-3 ">
             <input
               className="search  search-style"

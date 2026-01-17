@@ -142,7 +142,7 @@ function TaskData() {
   }, []);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-1 p-4 pt-3 pb-2 ">
+      <div className="project-details d-flex justify-content-between mt-5 p-4 pt-3 pb-2 ">
         <div className="pro-title">
           <p>
             <i

@@ -18,7 +18,7 @@ export default function NavBar() {
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg" >
+    <nav className="navbar nav-fixed navbar-expand-lg" >
   <div className="container-fluid">
    <img src={logo} className="logo" alt="logo"  style={{ height: "50px" }}/>
    

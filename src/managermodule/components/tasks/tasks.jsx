@@ -59,7 +59,7 @@ function Tasks() {
   }, []);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-1 p-4 ">
+      <div className="project-details d-flex justify-content-between mt-5 p-4 m-3">
         <div className="pro-title">
           {loginData?.userGroup != "Employee"?<h2>Tasks</h2>:<h2>Tasks Board</h2>}
         </div>
@@ -94,7 +94,7 @@ function Tasks() {
        {loginData?.userGroup != "Employee"?
      <div>
       {tasksList.length > 0 ? (
-        <div className="pro-container m-3 border-1 border  overflow-hidden m-4 shadow-lg ">
+        <div className="pro-container m-3 border-1 border  overflow-hidden  shadow-lg ">
           <div className="bg-white p-3 ">
             <input
               className="search  search-style"
