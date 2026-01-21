@@ -9,19 +9,37 @@ import Search from "../../../SharedModule/Components/Search/Search.jsx";
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import NoData from "../../../SharedModule/Components/NoData/NoData.jsx";
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Pagination from "../../../SharedModule/Components/Pagination/Pagination.jsx";
 
 
 export default function Users() {
   // ===== state =====
-  const [loading, setLoading] = useState(true);
-
-  const [pageSize, setPageSize] = useState(10);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [searchTitle, setSearchTitle] = useState("");
+  // const [loading, setLoading] = useState(true);
 
   const [userList, setUserList] = useState([]);
   const [viewList, setViewList] = useState(null);
   const [showView, setShowView] = useState(false);
+
+   ////////////////////////filteration////////
+     const [search ,setSearch] = useState('');
+     
+     const handlechange=(e)=>{
+      setSearch(e.target.value)
+     }
+     const filterusers =userList.filter((user)=>
+     user?.userName?.toLowerCase().includes(search.toLowerCase()))
+     //////////////////////////////////////
+     
+          /////////pagination/////////////
+          const [pageSize, setPageSize] = useState(6);
+       const [pageNumber, setPageNumber] = useState(1);
+       const [totalPages, setTotalPages] = useState(1);
+       
+       const [totalNumberOfRecords, setTotalNumberOfRecords] = useState(0);
+       
+  
 
   // ===== modal =====
   const handleCloseView = () => {
@@ -35,37 +53,31 @@ export default function Users() {
   };
 
   // ===== get users =====
-  const getAllUsers = useCallback(async () => {
-    setLoading(true);
+  const getAllUsers = useCallback(async (size,page) => {
+    // setLoading(true);
     try {
       const response = await axiosInstance.get(USERS_URL.GET_ALL_USERS, {
-        params: {
-          pageSize,
-          pageNumber,
-          ...(searchTitle && { userName: searchTitle }),
-        },
+       params:{pageSize:size,pageNumber:page},
       });
 
       setUserList(response.data.data || []);
+      setTotalPages(response.data.totalNumberOfPages);
+      setTotalNumberOfRecords(response.data.totalNumberOfRecords);
    
       
     } catch (error) {
-      if (isAxiosError(error)) {
-        toast.error(error.response?.data?.message || "Something went wrong!");
-      } else {
-        toast.error("Unknown error");
-      }
+      console.log(error)
     } finally {
       setLoading(false);
     }
-  }, [pageSize, pageNumber, searchTitle]);
+  });
 
   // ===== toggle active =====
   const toggleActivated = async (id) => {
     try {
       await axiosInstance.put(USERS_URL.TOGGLE_USER(id));
       toast.success("Status changed successfully");
-      getAllUsers();
+      getAllUsers(pageSize,pageNumber);
     } catch (error) {
       toast.error("Failed to change status");
     }
@@ -82,28 +94,32 @@ export default function Users() {
   };
 
   useEffect(() => {
-    getAllUsers();
+    getAllUsers(pageSize,pageNumber);
   }, [getAllUsers]);
 
   return (
     <>
-    <div className="project-details d-flex justify-content-between mt-5 p-4 m-3">
+    <div className="project-details d-flex justify-content-between mt-5 p-3 mb-1 ">
         <div className="pro-title">
          <h2>Users</h2>
         </div>
         </div>
         {userList.length > 0 ? (
-         <div className="pro-container m-3 border-1 border  overflow-hidden shadow-lg ">
-          <div className="bg-white p-3 ">
+         <div className="pro-container mt-1 border-1 border  overflow-hidden shadow-lg ">
+          <div className="bg-white p-3 text-dark">
+            
             <input
-              className="search  search-style"
+              className="btn-style w-25 w-md-50 w-lg-25 rounded-4 p-2"
               style={{ backgroundColor: "rgba(241, 241, 241, 1)" }}
-              class="form-control "
+      
               type="search"
-              placeholder="Search"
+              placeholder="Search..."
               aria-label="Search"
+              value={search}
+              onChange={handlechange}
             />
-          </div>
+            </div>
+     
 
         {/* ===== table ===== */}
        <Table striped>
@@ -113,30 +129,24 @@ export default function Users() {
                     <th>Status <i class="fa fa-caret-down" aria-hidden="true"></i></th>
                     {/* <th>Image<i class="fa fa-caret-down" aria-hidden="true"></i></th> */}
                     <th>Phone Number <i class="fa fa-caret-down" aria-hidden="true"></i></th>
-                    <th>Email <i class="fa fa-caret-down" aria-hidden="true"></i></th>
-                    <th>Date Created <i class="fa fa-caret-down" aria-hidden="true"></i></th>
+                    <th className="d-none d-md-table-cell">Email <i class="fa fa-caret-down" aria-hidden="true"></i></th>
+                    <th className="d-none d-md-table-cell">Date Created <i class="fa fa-caret-down" aria-hidden="true"></i></th>
                     <th>actions</th>
                   </tr>
                </thead>
 
           <tbody>
-            {loading && (
+            {/* {loading && (
               <tr className="table-body text-center">
                 <td colSpan={7} className="py-5">
                   <i className="fa fa-spinner fa-spin fa-2x"></i>
                 </td>
               </tr>
-            )}
+            )} */}
 
-            {!loading && userList.length === 0 && (
-              <tr>
-                <td colSpan={7} className="py-4  text-muted">
-                  No users found
-                </td>
-              </tr>
-            )}
+          
 
-            {userList.map((user) => (
+            {filterusers.map((user) => (
               <tr key={user.id} className="table-body">
                 <td>{user.userName}</td>
                 <td>
@@ -163,8 +173,8 @@ export default function Users() {
                   />
                 </td> */}
                 <td>{user.phoneNumber}</td>
-                <td>{user.email}</td>
-                <td>{moment(user.creationDate).format("MM-DD-YYYY")}</td>
+                <td className="d-none d-md-table-cell">{user.email}</td>
+                <td className="d-none d-md-table-cell">{moment(user.creationDate).format("MM-DD-YYYY")}</td>
                 <td>
                    <div className="dropdown">
                                         <span
@@ -194,9 +204,24 @@ export default function Users() {
             ))}
           </tbody>
         </Table>
+        <Pagination
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          setPageNumber={setPageNumber}
+          setPageSize={setPageSize}
+          totalNumberOfRecords={totalNumberOfRecords || 0}
+          totalPages={totalPages}/>
       </div>
         ) : (
               <NoData />)}
+              {/* <Pagination
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          setPageNumber={setPageNumber}
+          setPageSize={setPageSize}
+          totalNumberOfRecords={totalNumberOfRecords || 0}
+          totalPages={totalPages}/> */}
+
 
       {/* ===== modal ===== */}
       <Modal show={showView} onHide={handleCloseView} className="  d-flex justify-content-center align-items-center">

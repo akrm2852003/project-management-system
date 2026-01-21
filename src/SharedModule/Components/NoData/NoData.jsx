@@ -3,7 +3,8 @@ import noDataImage from '../../../assets/images/nodata.jpg';
 export default function NoData() {
   return (
     <div className='text-center'>
-     <img src={noDataImage} alt="" />   
+     <img src={noDataImage} alt="" className="img-fluid mx-auto d-block"/>  
+     
     </div>
   )
 }

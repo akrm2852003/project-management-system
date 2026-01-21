@@ -20,8 +20,8 @@ export default function Header({ description}) {
     <div className="container-fluid ">
       <div className="row">
         <div className="">
-          <h3 className='mb-4'>{greeting}, <span>{userName}</span></h3>
-        <p>{description}</p>
+          <h3 className='mb-2'>{greeting}, <span style={{color: "rgba(239, 155, 40, 1)"}}>{userName}</span></h3>
+        <p style={{color: "rgba(201, 201, 201, 1)"}}>You can add project and assign tasks to your team</p>
         </div>
       </div>
     </div>

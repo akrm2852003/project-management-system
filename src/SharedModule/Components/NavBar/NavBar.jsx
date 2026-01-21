@@ -1,14 +1,17 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import avatarImg from '../../../assets/images/avatar.png'
 import logo from '../../../assets/images/logonavbar.png'
 import logodark from '../../../assets/images/logo2.svg'
 import { useAuth } from '../../../AuthContext/AuthContext.jsx';
 // import { ThemeToggle } from './../ThemeToggle/ThemeToggle';
 import { useTheme } from '../ThemeContext/ThemeContext.jsx';
+
+
 export default function NavBar() {
   const {fullUserData,isLoading}=useAuth();
     if (isLoading) return null;
+    
 
   const {theme,toggleTheme} =useTheme();
   const isDark = theme === "dark";
@@ -16,15 +19,26 @@ export default function NavBar() {
   const userName = fullUserData?.userName ||  "User";
   const userEmail = fullUserData?.email || "";
 
+   
   return (
     <>
     <nav className="navbar nav-fixed navbar-expand-lg" >
+      
   <div className="container-fluid">
    <img src={logo} className="logo" alt="logo"  style={{ height: "50px" }}/>
+{/* 
+   {isMobile && (
+    <button
+      className="btn"
+      onClick={() => setShowSidebar(true)}
+    >
+      <i className="fa fa-bars fs-4"></i>
+    </button>
+  )} */}
    
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-        <button className="toggle-btn border-0 rounded-3 mt-2" onClick={toggleTheme}>{theme==="light"?"dark":"light"}</button>
+        <button className="toggle-btn border-0 mt-0 pt-0" onClick={toggleTheme}>{theme === "light" ? "🌙" : "☀️"}</button>
         <li className="nav-item">
           <a className="nav-link active" aria-current="page" href="#">
             <i className="fa-solid fa-bell fs-3 mt-2"></i>
@@ -43,7 +57,7 @@ export default function NavBar() {
         <li className="nav-item d-flex align-items-center ms-2">
           <span></span>
               </li>
-       
+         
       </ul>
      
     </div>

@@ -8,11 +8,31 @@ import Deleteconfirm from "../../../SharedModule/Components/deleteconfirmation/d
 import NoData from "../../../SharedModule/Components/NoData/NoData";
 
 import { AuthContext } from './../../../AuthContext/AuthContext';
+import Search from "../../../SharedModule/Components/Search/Search";
+import Pagination from "../../../SharedModule/Components/Pagination/Pagination";
 
 function Porjects() {
   const [projectsList, setProjectsList] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
   const navigate = useNavigate();
    let {loginData} =useContext(AuthContext);
+
+   ////////////////////////filteration////////
+   const [search ,setSearch] = useState('');
+   const [loading ,setLoading] =useState(true);
+   const handlechange=(e)=>{
+    setSearch(e.target.value)
+   }
+   const filterprojects =projectsList.filter((project)=>
+   project.title.toLowerCase().includes(search.toLowerCase()))
+   //////////////////////////////////////
+
+   /////////pagination/////////////
+   const [pageSize, setPageSize] = useState(6);
+const [pageNumber, setPageNumber] = useState(1);
+const [totalPages, setTotalPages] = useState(1);
+
+const [totalNumberOfRecords, setTotalNumberOfRecords] = useState(0);
 
 
   const [show, setShow] = useState(false);
@@ -25,28 +45,32 @@ function Porjects() {
   };
   
 
-  const getAllProjects = async () => {
+  const getAllProjects = async (size,page) => {
 
    try {
       let response = await axios.get(
-        "https://upskilling-egypt.com:3003/api/v1/Project/?pageSize=10&pageNumber=1",
+        "https://upskilling-egypt.com:3003/api/v1/Project/?pageSize=5&pageNumber=1",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          params:{pageSize:size,pageNumber:page}
         }
       );
       console.log(response.data.data);
       setProjectsList(response.data.data);
+      setTotalPages(response.data.totalNumberOfPages);
+      setTotalNumberOfRecords(response.data.totalNumberOfRecords);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getAllEmplyeeProjects = async () => {
+  const getAllEmplyeeProjects = async (size,page) => {
     try {
       let response = await axios.get(
         "https://upskilling-egypt.com:3003/api/v1/Project/employee?pageSize=10&pageNumber=1",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          params:{pageSize:size,pageNumber:page}
         }
       );
       console.log(response.data.data);
@@ -65,7 +89,7 @@ function Porjects() {
         }
       );
       console.log(projId);
-      getAllProjects();
+      getAllProjects(pageSize,pageNumber);
       handleClose();
     } catch (error) {
       console.log(error);
@@ -75,13 +99,13 @@ function Porjects() {
   useEffect(() => {
     if(!loginData?.userGroup)return;
     if(loginData?.userGroup ==="Employee"){
-      getAllEmplyeeProjects();
-    }else{ getAllProjects();}
+      getAllEmplyeeProjects(pageSize,pageNumber);
+    }else{ getAllProjects(pageSize,pageNumber);}
     
-  }, [loginData]);
+  }, [loginData ,pageSize,pageNumber]);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-5 p-4 m-3 ">
+      <div className="project-details d-flex justify-content-between mt-5 p-3  mb-1 ">
         <div className="pro-title">
           <h2>Projects</h2>
         </div>
@@ -115,19 +139,23 @@ function Porjects() {
       </Modal>
 
       {projectsList.length > 0 ? (
-        <div className="pro-container m-3 mt-0">
+        <div className="pro-container mt-1 mt-0 border  overflow-hidden  shadow-lg ">
           <div className="bg-white p-3">
+           
             <input
-              className="search border-0 w-25 rounded-4 p-2"
+              className="btn-style w-25 w-md-50 w-lg-25 rounded-4 p-2"
               style={{ backgroundColor: "rgba(241, 241, 241, 1)" }}
-              class="form-control "
+              
               type="search"
-              placeholder="Search"
+              placeholder="Search..."
               aria-label="Search"
+              value={search}
+              onChange={handlechange}
             />
           </div>
 
-          <Table striped>
+          <div className="table-responsive">
+             <Table striped className="align-middle">
             <thead>
               <tr className="table-head">
                 <th>
@@ -136,13 +164,13 @@ function Porjects() {
                 <th>
                   Status <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
-                <th>
+                <th className="d-none d-md-table-cell">
                   Num User <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
-                <th>
+                <th className="d-none d-md-table-cell">
                   Num Tasks <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
-                <th>
+                <th className="d-none d-md-table-cell">
                   Date Created{" "}
                   <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
@@ -150,7 +178,7 @@ function Porjects() {
               </tr>
             </thead>
             <tbody>
-              {projectsList.map((proj) => (
+              {filterprojects.map((proj) => (
                 <tr className="table-body">
                   <td>{proj.title}</td>
                   <td>
@@ -158,9 +186,9 @@ function Porjects() {
                       Public
                     </div>
                   </td>
-                  <td>2</td>
-                  <td>8</td>
-                  <td>{proj.creationDate}</td>
+                  <td className="d-none d-md-table-cell">2</td>
+                  <td className="d-none d-md-table-cell">8</td>
+                  <td className="d-none d-md-table-cell">{proj.creationDate}</td>
 
                   {loginData?.userGroup != "Employee"?<td>
                     <div className="dropdown">
@@ -195,10 +223,22 @@ function Porjects() {
               ))}
             </tbody>
           </Table>
+
+           <Pagination
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          setPageNumber={setPageNumber}
+          setPageSize={setPageSize}
+          totalNumberOfRecords={totalNumberOfRecords || 0}
+          totalPages={totalPages}/>
+
+          </div>
         </div>
       ) : (
         <NoData />
       )}
+     
+
     </>
   );
 }

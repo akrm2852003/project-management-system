@@ -7,11 +7,44 @@ import Deleteconfirm from "../../../SharedModule/Components/deleteconfirmation/d
 import NoData from "../../../SharedModule/Components/NoData/NoData";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from './../../../AuthContext/AuthContext';
+import { DndContext, useDraggable , closestCorners} from "@dnd-kit/core";
+// import TaskColumn from "../taskcolumn/taskcolumn";
+import Pagination from "../../../SharedModule/Components/Pagination/Pagination";
+// import {DndContext,closestCorners} from "@dnd-kit/core";
+import '../taskcard/taskcard'
+import '../taskcolumn/taskcolumn'
+import Column from '../taskcolumn/taskcolumn'
+
+
+
+
 
 function Tasks() {
   const [tasksList, setTasksList] = useState([]);
+  const [assigntasksList, setAssignTasksList] = useState([]);
+  const [tasks, setTasks] = useState([]);
+
   const navigate = useNavigate();
     let {loginData} =useContext(AuthContext);
+
+    ////////////////////////filteration////////
+       const [search ,setSearch] = useState('');
+       const [loading ,setLoading] =useState(true);
+       const handlechange=(e)=>{
+        setSearch(e.target.value)
+       }
+       const filtertasks =tasksList.filter((task)=>
+       task.title.toLowerCase().includes(search.toLowerCase()))
+       //////////////////////////////////////
+
+       
+          /////////pagination/////////////
+          const [pageSize, setPageSize] = useState(6);
+       const [pageNumber, setPageNumber] = useState(1);
+       const [totalPages, setTotalPages] = useState(1);
+       
+       const [totalNumberOfRecords, setTotalNumberOfRecords] = useState(0);
+       
   
 
   const [show, setShow] = useState(false);
@@ -23,21 +56,99 @@ function Tasks() {
     setShow(true);
   };
 
-  const getAllTasks = async () => {
+  const getAllTasks = async (size,page) => {
     try {
       let response = await axios.get(
-        "https://upskilling-egypt.com:3003/api/v1/Task/manager?pageSize=10&pageNumber=1",
+        "https://upskilling-egypt.com:3003/api/v1/Task/manager?pageSize=5&pageNumber=1",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          params:{pageSize:size,pageNumber:page}
         }
       );
       console.log(response.data.data);
       setTasksList(response.data.data);
+      setTotalPages(response.data.totalNumberOfPages);
+      setTotalNumberOfRecords(response.data.totalNumberOfRecords);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getAllassignTasks = async (size,page) => {
+    try {
+      let response = await axios.get(
+        "https://upskilling-egypt.com:3003/api/v1/Task?pageSize=50&pageNumber=1",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          params:{pageSize:size,pageNumber:page}
+        }
+      );
+      console.log(response.data.data);
+      // setAssignTasksList(response.data.data);
+      setTotalPages(response.data.totalNumberOfPages);
+      setTotalNumberOfRecords(response.data.totalNumberOfRecords);
+
+      setTasks(response.data.data);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+//////////////////////////////////////////////////////////////
+ const columns = {
+  ToDo: tasks.filter(t => t.status === "ToDo"),
+  InProgress: tasks.filter(t => t.status === "InProgress"),
+  Done: tasks.filter(t => t.status === "Done"),
+};
+
+const changeTaskStatus = async (taskId, newStatus) => {
+  try {
+    await axios.put(
+      `https://upskilling-egypt.com:3003/api/v1/Task/${taskId}/change-status`,
+      { status: newStatus },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+const handleDragEnd = (event) => {
+  const { active, over } = event;
+  if (!over) return;
+
+  const activeTaskId = active.id;
+  const activeTaskStatus = active.data.current.status;
+
+  let newStatus;
+
+  if (over.data.current?.type === "COLUMN") {
+    newStatus = over.data.current.status;
+  }
+
+  if (over.data.current?.type === "TASK") {
+    newStatus = over.data.current.status;
+  }
+
+  if (!newStatus || newStatus === activeTaskStatus) return;
+
+  setTasks(prev =>
+    prev.map(task =>
+      task.id === activeTaskId
+        ? { ...task, status: newStatus }
+        : task
+    )
+  );
+
+  changeTaskStatus(activeTaskId, newStatus);
+};
+
+////////////////////////////////////////////////////////
   const deleteTask = async () => {
     try {
       let response = await axios.delete(
@@ -47,26 +158,30 @@ function Tasks() {
         }
       );
       console.log(taskId);
-      getAllTasks();
+      getAllTasks(pageSize,pageNumber);
       handleClose();
+      
     } catch (error) {
       console.log(error);
     }
   };
 
+//////////////////////////////////////
+
   useEffect(() => {
-    getAllTasks();
+    getAllTasks(pageSize,pageNumber);
+    getAllassignTasks(pageSize,pageNumber);
   }, []);
   return (
     <>
-      <div className="project-details d-flex justify-content-between mt-5 p-4 m-3">
+      <div className="project-details d-flex justify-content-between mt-5 p-3  mb-1 ">
         <div className="pro-title">
           {loginData?.userGroup != "Employee"?<h2>Tasks</h2>:<h2>Tasks Board</h2>}
         </div>
         {loginData?.userGroup != "Employee"?
         <div className="pro-btn">
           <button
-            className="rounded-5 border-0 p-2 text-white"
+            className="rounded-5 border-0 p-2 text-white "
             onClick={() => {
               navigate('/dashboard/taskdata');
             }}
@@ -77,8 +192,8 @@ function Tasks() {
         </div>:''}
       </div>
 
-      <Modal show={show} className="model-style ms-5" onHide={handleClose}>
-        <Modal.Header closeButton>
+      <Modal show={show} className="d-flex justify-content-center align-items-center" onHide={handleClose}>
+        <Modal.Header className="p-2" closeButton>
           <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -94,19 +209,22 @@ function Tasks() {
        {loginData?.userGroup != "Employee"?
      <div>
       {tasksList.length > 0 ? (
-        <div className="pro-container m-3 border-1 border  overflow-hidden  shadow-lg ">
+        <div className="pro-container mt-1 border-1 border  overflow-hidden  shadow-lg ">
           <div className="bg-white p-3 ">
             <input
-              className="search  search-style"
+              className="btn-style w-25 w-md-50 w-lg-25 rounded-4 p-2"
               style={{ backgroundColor: "rgba(241, 241, 241, 1)" }}
-              class="form-control "
               type="search"
               placeholder="Search"
-              aria-label="Search"
-            />
+              value={search}
+              onChange={handlechange}
+              />
+
           </div>
 
-          <Table className=""   striped>
+          <div className="table-responsive">
+             <Table striped className="align-middle">
+
             <thead>
               <tr className="table-head">
                 <th>
@@ -115,13 +233,10 @@ function Tasks() {
                 <th>
                   Status <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
-                <th>
-                  Num User <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </th>
-                <th>
-                  Num Tasks <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </th>
-                <th>
+                <th className="d-none d-md-table-cell">Num User</th>
+                <th className="d-none d-md-table-cell">Num Tasks</th>
+
+                <th className="d-none d-md-table-cell">
                   Date Created{" "}
                   <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </th>
@@ -129,7 +244,7 @@ function Tasks() {
               </tr>
             </thead>
             <tbody>
-              {tasksList.map((task) => (
+              {filtertasks.map((task) => (
                 <tr className="table-body">
                   <td>{task.title}</td>
                   <td>
@@ -137,9 +252,10 @@ function Tasks() {
                       Done
                     </div>
                   </td>
-                  <td>2</td>
-                  <td>8</td>
-                  <td>{task.creationDate}</td>
+                  <td className="d-none d-md-table-cell">2</td>
+                  <td className="d-none d-md-table-cell">8</td>
+
+                  <td className="d-none d-md-table-cell">{task.creationDate}</td>
 
                <td>
                     <div className="dropdown">
@@ -175,42 +291,44 @@ function Tasks() {
             </tbody>
           </Table>
 
+          <Pagination
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          setPageNumber={setPageNumber}
+          setPageSize={setPageSize}
+          totalNumberOfRecords={totalNumberOfRecords || 0}
+          totalPages={totalPages}/>
+        
+        </div>
 
         </div>
       ) : (
         <NoData />
-      )}</div> :
+      )}
+      
+
+      </div> :
+      
       <div className="d-flex justify-content-center align-item-center w-100">
-        <div className="">
-          <h2 className="text-center mt-4 mb-3">ToDo</h2>
-          <div className="p-4 pt-4 pb-5 rounded-3 vh-75" style={{backgroundColor:"rgba(14, 56, 47, 1)",height:"300px",width:"340px"}}>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>login Ui</div>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Login Inegration</div>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Register Ui</div>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Register Integration</div>
-          </div>
-        </div>
+         <DndContext collisionDetection={closestCorners}  onDragEnd={handleDragEnd}>
+           <div className="board">
+           {Object.keys(columns).map(status => (
+             <Column
+               key={status}
+               status={status}
+               tasks={columns[status]}
+            />
+           ))}
+           </div>
+         </DndContext>
 
-        <div className=" mx-3 ms-3">
-          <h2 className="text-center mt-4 mb-3">In Progress</h2>
-          <div className="p-4 rounded-3 " style={{backgroundColor:"rgba(14, 56, 47, 1)",height:"300px",width:"340px"}}>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>login Ui</div>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>Register Ui</div>
 
-          </div>
-        </div>
-
-        <div className="">
-          <h2 className="text-center mt-4 mb-3">Done</h2>
-          <div className="p-4 rounded-3" style={{backgroundColor:"rgba(14, 56, 47, 1)",height:"300px",width:"340px"}}>
-            <div className="p-2 text-white  rounded-3 w-100 mb-2" style={{backgroundColor:"rgba(239, 155, 40, 1)"}}>login Ui</div>
-           
-          </div>
-        </div>
-        
       </div>
+      
       }
+        
     </>
   );
 }
+
 export default Tasks;

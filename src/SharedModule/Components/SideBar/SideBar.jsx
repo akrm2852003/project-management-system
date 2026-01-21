@@ -1,12 +1,15 @@
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Sidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext, useAuth } from '../../../AuthContext/AuthContext';
+import { Offcanvas } from 'react-bootstrap';
+
 
 
 export default function SideBar({isCollapsed,setIsCollapsed}) {
     const navigate =useNavigate();
+  
 
   // const [isCollapsed, setIsCollapsed ] = useState(false);
   const toggleSidebar = () => {
@@ -19,9 +22,13 @@ export default function SideBar({isCollapsed,setIsCollapsed}) {
     navigate("/login",{replace:true});
   }
 
+
   return (
     <>
   <div className="sidebar-container">
+
+
+
     
       <Sidebar collapsed={isCollapsed} >
      <Menu  className=' ps-2 '>
@@ -37,8 +44,10 @@ export default function SideBar({isCollapsed,setIsCollapsed}) {
     <MenuItem component={<Link to="/dashboard/tasks" />} className='px-3' icon={<i className="fa-solid fa-tasks"></i>}> Tasks </MenuItem>
     <MenuItem onClick={Logout} className='px-3' icon={<i className="fa-solid fa-sign-out"></i>}> Log out </MenuItem>
   </Menu>
-</Sidebar>
+</Sidebar> 
 
+
+   
   </div>
      </>
   )

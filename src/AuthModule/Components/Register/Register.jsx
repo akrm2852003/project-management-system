@@ -45,15 +45,15 @@ function Register() {
   return (
     <>
       <div className="auth-container">
-        <div className="container-fluid   ">
+        <div className="container-fluid  vh-100 ">
           <div className="images">
             <div className="bg-login"></div>
             <div className="log-img"></div>
           </div>
-          <div className="content ">
+          <div className="vh-100 ">
             <div className="row justify-content-center align-items-center  ">
               <div className="form-container col-lg-8 col-xl-7   col-md-10 col-sm-12  ">
-                <div className=" logo d-flex justify-content-center align-items-center mb-3">
+                <div className=" logo d-flex justify-content-center align-items-center mb-1">
                   <img src={logo} className="w-25" alt="this is logo image" />
                 </div>
                 <Form  onSubmit={handleSubmit(onSubmit)}
